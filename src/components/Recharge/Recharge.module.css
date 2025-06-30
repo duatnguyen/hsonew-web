@@ -19,7 +19,7 @@
 /* Method Selection */
 .methodSection {
   margin-bottom: 30px;
-  animation: slideInUp 0.6s ease-out;
+
 }
 
 @keyframes slideInUp {
@@ -84,81 +84,28 @@
 }
 
 .methodCard.selected {
-  border-color: rgba(233, 30, 99, 0.4);
+  border-color: rgba(233, 30, 99, 0.6);
   background: linear-gradient(145deg, 
     rgba(252, 228, 236, 0.4), 
     rgba(248, 187, 217, 0.35));
   box-shadow: 
-    0 0 25px rgba(233, 30, 99, 0.3),
-    0 12px 30px rgba(233, 30, 99, 0.2),
+    0 0 8px rgba(233, 30, 99, 0.4),
+    0 4px 12px rgba(233, 30, 99, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: scale(1.05) translateY(-5px);
-  animation: selectedGlow 2s ease-in-out infinite alternate;
+  transform: scale(1.02) translateY(-2px);
 }
 
-@keyframes selectedGlow {
-  0% { 
-    box-shadow: 
-      0 0 30px rgba(233, 30, 99, 0.8),
-      0 15px 35px rgba(233, 30, 99, 0.4),
-      0 0 60px rgba(233, 30, 99, 0.3);
-  }
-  100% { 
-    box-shadow: 
-      0 0 40px rgba(233, 30, 99, 1),
-      0 20px 40px rgba(233, 30, 99, 0.6),
-      0 0 80px rgba(233, 30, 99, 0.5);
-  }
-}
 
-.methodCard.selected .methodIcon {
-  animation: selectedIconSpin 2s ease-in-out infinite;
-}
 
-.methodCard.selected .methodIcon::before {
-  opacity: 1;
-}
 
-@keyframes selectedIconSpin {
-  0%, 100% { 
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(126, 87, 194, 0.4);
-  }
-  50% { 
-    transform: scale(1.15);
-    box-shadow: 0 8px 25px rgba(126, 87, 194, 0.6);
-  }
-}
 
-.methodCard:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 
-    0 12px 25px rgba(121, 134, 203, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2);
-}
 
-.methodCard:hover::before {
-  left: 100%;
-}
 
-.methodCard:hover::after {
-  width: 200px;
-  height: 200px;
-}
 
-.methodCard:hover .methodIcon {
-  transform: scale(1.1);
-  animation: iconPulse 1s ease infinite;
-}
 
-.methodCard:hover .methodIcon::before {
-  opacity: 1;
-}
 
-@keyframes iconPulse {
-  0%, 100% { box-shadow: 0 6px 15px rgba(126, 87, 194, 0.4); }
-  50% { box-shadow: 0 8px 25px rgba(126, 87, 194, 0.6); }
-}
+
+
 
 .methodIcon {
   width: 70px;
@@ -176,25 +123,7 @@
   position: relative;
 }
 
-.methodIcon::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #E91E63, #9C27B0, #673AB7, #3F51B5);
-  border-radius: 50%;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  animation: rotateBorder 3s linear infinite;
-}
 
-@keyframes rotateBorder {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
 .methodLabel {
   display: block;
@@ -206,7 +135,6 @@
 
 .formSection {
   margin-bottom: 30px;
-  animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 .form {
@@ -276,46 +204,9 @@
   transform-style: preserve-3d;
 }
 
-.submitButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
-}
 
-.submitButton::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
 
-.submitButton:hover {
-  background: linear-gradient(145deg, #C2185B, #AD1457);
-  transform: translateY(-5px) rotateX(5deg) scale(1.02);
-  box-shadow: 
-    0 12px 30px rgba(233, 30, 99, 0.6),
-    0 0 20px rgba(233, 30, 99, 0.4);
-}
 
-.submitButton:hover::before {
-  left: 100%;
-}
-
-.submitButton:hover::after {
-  width: 300px;
-  height: 300px;
-}
 
 .submitButton:active {
   transform: translateY(-2px) rotateX(2deg) scale(0.98);
@@ -324,17 +215,20 @@
 
 .amountSection {
   margin-bottom: 30px;
-  animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 .amountGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   margin: 20px 0;
+  justify-content: space-between;
 }
 
 .amountCard {
+  flex: 1 1 calc(33.333% - 10px);
+  max-width: calc(33.333% - 10px);
+  min-width: 200px;
   background: linear-gradient(145deg, 
     rgba(243, 229, 245, 0.3), 
     rgba(225, 190, 231, 0.25));
@@ -343,119 +237,36 @@
   padding: 22px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   box-shadow: 
     0 8px 20px rgba(186, 104, 200, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(15px);
-  transform-style: preserve-3d;
   position: relative;
   overflow: hidden;
-  animation: cardBreathe 4s ease-in-out infinite;
 }
 
-@keyframes cardBreathe {
-  0%, 100% { 
-    transform: scale(1) rotateX(0deg);
-    box-shadow: 0 6px 18px rgba(186, 104, 200, 0.25);
-  }
-  50% { 
-    transform: scale(1.02) rotateX(1deg);
-    box-shadow: 0 8px 22px rgba(186, 104, 200, 0.35);
-  }
-}
 
-.amountCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, 
-    transparent 30%, 
-    rgba(255, 255, 255, 0.1) 50%, 
-    transparent 70%);
-  transform: translateX(-100%) skewX(-15deg);
-  transition: transform 0.6s;
-}
 
-.amountCard::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+
 
 .amountCard.selected {
-  border-color: rgba(33, 150, 243, 0.4);
+  border-color: rgba(33, 150, 243, 0.7);
   background: linear-gradient(145deg, 
     rgba(227, 242, 253, 0.4), 
     rgba(187, 222, 251, 0.35));
   box-shadow: 
-    0 0 25px rgba(33, 150, 243, 0.3),
-    0 12px 30px rgba(33, 150, 243, 0.2),
+    0 0 6px rgba(33, 150, 243, 0.5),
+    0 4px 12px rgba(33, 150, 243, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: scale(1.08) translateY(-10px) rotateX(5deg);
-  animation: selectedPulse 1.5s ease-in-out infinite;
+  transform: scale(1.02) translateY(-2px);
 }
 
-@keyframes selectedPulse {
-  0%, 100% { 
-    box-shadow: 
-      0 0 30px rgba(33, 150, 243, 0.8),
-      0 15px 35px rgba(33, 150, 243, 0.4),
-      0 0 60px rgba(33, 150, 243, 0.3);
-  }
-  50% { 
-    box-shadow: 
-      0 0 40px rgba(33, 150, 243, 1),
-      0 20px 40px rgba(33, 150, 243, 0.6),
-      0 0 80px rgba(33, 150, 243, 0.5);
-    transform: scale(1.05) translateY(-8px);
-  }
-}
 
-.amountCard:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 
-    0 12px 25px rgba(186, 104, 200, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2);
-}
 
-.amountCard:hover::before {
-  transform: translateX(100%) skewX(-15deg);
-}
 
-.amountCard:hover::after {
-  opacity: 1;
-}
 
-.amountCard:hover .amountPrice {
-  animation: priceZoom 0.6s ease;
-}
 
-.amountCard:hover .amountCoins {
-  animation: coinsSpin 0.8s ease;
-}
-
-@keyframes priceZoom {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-@keyframes coinsSpin {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
 
 .amountPrice {
   color: #4A148C;
@@ -501,16 +312,7 @@
 
 
 
-.paymentButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
-}
+
 
 .paymentButton::after {
   content: '';
@@ -530,17 +332,7 @@
   transform: none;
 }
 
-.paymentButton:not(:disabled):hover {
-  background: linear-gradient(145deg, #1976D2, #1565C0);
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 
-    0 15px 30px rgba(33, 150, 243, 0.6),
-    0 0 20px rgba(33, 150, 243, 0.4);
-}
 
-.paymentButton:not(:disabled):hover::before {
-  left: 100%;
-}
 
 .paymentButton:not(:disabled):active {
   transform: translateY(-2px) scale(0.98);
@@ -568,7 +360,6 @@
 
 .historySection {
   margin-bottom: 30px;
-  animation: slideInUp 1s ease-out 0.4s both;
 }
 
 .historyTable {
@@ -646,8 +437,13 @@
   }
   
   .amountGrid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+  
+  .amountCard {
+    flex: 1 1 calc(50% - 7.5px);
+    max-width: calc(50% - 7.5px);
+    min-width: 180px;
   }
   
   .tableHeader {
@@ -670,11 +466,9 @@
 }
 
 @media (max-width: 480px) {
-  .amountGrid {
-    grid-template-columns: 1fr;
-  }
-  
   .amountCard {
+    flex: 5 5 100%;
+    max-width: 100%;
     padding: 15px;
   }
   
@@ -685,7 +479,6 @@
 
 .priceTableSection {
   margin-bottom: 30px;
-  animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 .priceTableTitle {
@@ -720,13 +513,6 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: tableShimmer 3s ease-in-out infinite;
-}
-
-@keyframes tableShimmer {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
 }
 
 .priceTable {
@@ -758,21 +544,9 @@
   border-right: none;
 }
 
-.priceHeaderCell::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #E91E63, #FF4081);
-  transform: translateX(-50%);
-  transition: width 0.3s ease;
-}
 
-.priceHeaderCell:hover::before {
-  width: 80%;
-}
+
+
 
 .priceTableRow {
   display: grid;
@@ -781,26 +555,9 @@
   position: relative;
 }
 
-.priceTableRow::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
-  transition: width 0.3s ease;
-  z-index: 0;
-}
 
-.priceTableRow:hover::before {
-  width: 100%;
-}
 
-.priceTableRow:hover {
-  transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(121, 134, 203, 0.3);
-}
+
 
 .evenRow {
   background: linear-gradient(135deg, 
@@ -836,10 +593,7 @@
   background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(142, 36, 170, 0.05));
 }
 
-.priceTableRow:hover .priceTableCell {
-  color: #1A237E;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 1);
-}
+
 
 .priceTableNote {
   margin-top: 20px;
@@ -923,7 +677,7 @@
     0 10px 30px rgba(121, 134, 203, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  animation: slideInUp 1s ease-out 0.3s both;
+
 }
 
 .customAmountTitle {
@@ -1003,18 +757,6 @@
     rgba(142, 36, 170, 0.05));
   border-radius: 15px;
   border: 2px solid rgba(126, 87, 194, 0.2);
-  animation: resultSlideIn 0.5s ease-out;
-}
-
-@keyframes resultSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .resultAmount {
@@ -1028,18 +770,6 @@
   color: #7E57C2;
   font-size: 1.5rem;
   font-weight: bold;
-  animation: arrowPulse 2s ease-in-out infinite;
-}
-
-@keyframes arrowPulse {
-  0%, 100% { 
-    transform: scale(1);
-    color: #7E57C2;
-  }
-  50% { 
-    transform: scale(1.2);
-    color: #E91E63;
-  }
 }
 
 .resultGems {
@@ -1051,18 +781,6 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-  animation: gemsGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes gemsGlow {
-  0% { 
-    filter: brightness(1);
-    transform: scale(1);
-  }
-  100% { 
-    filter: brightness(1.2);
-    transform: scale(1.05);
-  }
 }
 
 /* Responsive cho bảng giá */

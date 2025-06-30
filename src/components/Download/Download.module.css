@@ -116,4 +116,250 @@
   .downloadSection h2 {
     font-size: 1.2rem;
   }
+}
+
+.downloadPage {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #1a5d1a;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.platformCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.platformCard:hover {
+  transform: translateY(-5px);
+}
+
+.platformHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.platformIcon {
+  font-size: 2.5rem;
+}
+
+.platformHeader h2 {
+  font-size: 1.5rem;
+  color: #1a5d1a;
+  margin: 0;
+}
+
+.description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.requirements {
+  background: rgba(26, 93, 26, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.requirements h3 {
+  color: #1a5d1a;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirements li {
+  padding: 0.5rem 0;
+  color: #444;
+  display: flex;
+  align-items: center;
+}
+
+.requirements li::before {
+  content: '✓';
+  color: #1a5d1a;
+  margin-right: 0.5rem;
+}
+
+.versionSection {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.versionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.versionNumber {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a5d1a;
+}
+
+.versionMeta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.changelog {
+  background: rgba(26, 93, 26, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.changelog h4 {
+  color: #1a5d1a;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.changelog ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.changelog li {
+  padding: 0.3rem 0;
+  color: #444;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.changelog li::before {
+  content: '•';
+  color: #1a5d1a;
+  margin-right: 0.5rem;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  background: #1a5d1a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.downloadButton:hover {
+  background: #2e7d32;
+  transform: translateY(-2px);
+}
+
+.downloadIcon {
+  font-size: 1.2rem;
+}
+
+.notice {
+  background: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 3rem;
+}
+
+.notice h3 {
+  color: #b28704;
+  margin-bottom: 1rem;
+}
+
+.notice ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notice li {
+  padding: 0.5rem 0;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.notice li::before {
+  content: '⚠️';
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .downloadPage {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .platforms {
+    grid-template-columns: 1fr;
+  }
+
+  .platformCard {
+    padding: 1.5rem;
+  }
+
+  .platformIcon {
+    font-size: 2rem;
+  }
+
+  .platformHeader h2 {
+    font-size: 1.3rem;
+  }
+
+  .requirements,
+  .changelog {
+    padding: 1rem;
+  }
+
+  .downloadButton {
+    padding: 0.8rem;
+  }
 } 

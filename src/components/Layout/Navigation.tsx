@@ -2,12 +2,57 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
+interface MenuItem {
+  label: string;
+  to: string;
+  icon: string;
+  badge?: string;
+}
+
 const Navigation: React.FC = () => {
-  const menuItems = [
-    { label: 'Trang chủ', to: '/trangchu' },
-    { label: 'Giftcode', to: '/recharge/tt' },
-    { label: 'Nạp Ngọc', to: '/recharge' },
-    { label: 'Box Zalo', to: '/community' },
+  const menuItems: MenuItem[] = [
+    { 
+      label: 'Trang Chủ',
+      to: '/trangchu',
+      icon: '🏠'
+    },
+    { 
+      label: 'Tin Tức',
+      to: '/news',
+      icon: '📰',
+      badge: 'New'
+    },
+    { 
+      label: 'Tải Game',
+      to: '/download',
+      icon: '⬇️'
+    },
+    { 
+      label: 'Giftcode',
+      to: '/giftcode',
+      icon: '🎁',
+      badge: 'Hot'
+    },
+    { 
+      label: 'Nạp Ngọc',
+      to: '/recharge',
+      icon: '💎'
+    },
+    { 
+      label: 'Xếp Hạng',
+      to: '/ranking',
+      icon: '🏆'
+    },
+    { 
+      label: 'Cộng Đồng',
+      to: '/community',
+      icon: '👥'
+    },
+    { 
+      label: 'Hỗ Trợ',
+      to: '/support',
+      icon: '❓'
+    }
   ];
 
   return (
@@ -17,11 +62,15 @@ const Navigation: React.FC = () => {
           <div key={index} className={styles.menuItem}>
             <NavLink
               to={item.to}
-              className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
-            // data-bs-toggle={item.requiresAuth ? 'modal' : undefined}
-            // data-bs-target={item.requiresAuth ? '#login-modal' : undefined}
+              className={({ isActive }) => 
+                `${styles.menuLink} ${isActive ? styles.active : ''}`
+              }
             >
-              {item.label}
+              <span className={styles.menuIcon}>{item.icon}</span>
+              <span className={styles.menuLabel}>{item.label}</span>
+              {item.badge && (
+                <span className={styles.menuBadge}>{item.badge}</span>
+              )}
             </NavLink>
           </div>
         ))}

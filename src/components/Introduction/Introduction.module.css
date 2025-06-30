@@ -1,54 +1,235 @@
 .introduction {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  border-radius: 20px;
+}
+
+.heroSection {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+              url('../../assets/images/logo.png') center/cover;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.mainTitle {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.section {
+  margin-bottom: 4rem;
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #064635;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #1a5d1a;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
-hr {
-  border: none;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  margin: 1rem 0;
+.sectionTitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #1a5d1a;
+  margin: 1rem auto;
+  border-radius: 2px;
 }
 
 .content {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-.content p {
-  margin-bottom: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
 .highlight {
-  color: #f39c12;
-  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+  display: block;
 }
 
-.fun {
-  background: linear-gradient(45deg, rgba(0, 200, 151, 0.1), rgba(0, 163, 108, 0.1));
-  padding: 1rem;
-  border-radius: 8px;
-  border-left: 4px solid #00c897;
-  margin: 1.5rem 0;
+.classesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-@media (max-width: 480px) {
+.classCard {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.classCard:hover {
+  transform: translateY(-5px);
+}
+
+.classCard h3 {
+  color: #1a5d1a;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.classCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.classCard li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.classCard li:last-child {
+  border-bottom: none;
+}
+
+.classCard li::before {
+  content: '⚔️';
+  margin-right: 0.5rem;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.featureCard h3 {
+  color: #1a5d1a;
+  margin-bottom: 1rem;
+}
+
+.socialFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.socialCard {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.socialCard:hover {
+  transform: translateY(-5px);
+}
+
+.socialCard h3 {
+  color: #1a5d1a;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.ctaSection {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(26, 93, 26, 0.9), rgba(26, 93, 26, 0.9)),
+              url('../../assets/images/logo.png') center/cover;
+  border-radius: 20px;
+  color: white;
+}
+
+.ctaSection h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.ctaSection p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.ctaButton {
+  background: white;
+  color: #1a5d1a;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
   .introduction {
     padding: 1rem;
   }
 
-  .content {
-    font-size: 0.9rem;
+  .heroSection {
+    padding: 3rem 1rem;
+  }
+
+  .mainTitle {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .classesGrid,
+  .featuresGrid,
+  .socialFeatures {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .ctaSection {
+    padding: 3rem 1rem;
+  }
+
+  .ctaSection h2 {
+    font-size: 2rem;
   }
 } 

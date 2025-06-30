@@ -6,7 +6,7 @@ const Navigation: React.FC = () => {
   const menuItems = [
     { label: 'Trang chủ', to: '/trangchu' },
     { label: 'Giftcode', to: '/recharge/tt', requiresAuth: true },
-    { label: 'Nạp Ngọc', to: '/recharge', requiresAuth: true },
+    { label: 'Nạp Ngọc', to: '/recharge'},
     { label: 'Box Zalo', to: '/community' },
   ];
 

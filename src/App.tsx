@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AccountPage from './pages/AccountPage';
 import HomePage from './pages/HomePage';
+import RechargePage from './pages/RechargePage';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Navigate to="/trangchu" replace />} />
                 <Route path="/trangchu" element={<HomePage />} />
                 <Route path="/account" element={<AccountPage />} />
+                <Route path="/recharge" element={<RechargePage />} />
               </Routes>
               <footer className="footer">
                 <div className="age-rule">

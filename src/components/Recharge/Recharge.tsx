@@ -6,6 +6,7 @@ type PaymentMethod = 'bank' | 'card';
 const Recharge: React.FC = () => {
     const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('card');
     const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+    const [customAmount, setCustomAmount] = useState<string>('');
     const [formData, setFormData] = useState({
         provider: '',
         amount: '',
@@ -14,26 +15,67 @@ const Recharge: React.FC = () => {
     });
 
     const amounts = [
-        { price: 20000, coins: 20000 },
-        { price: 50000, coins: 50000 },
-        { price: 100000, coins: 100000 },
-        { price: 200000, coins: 200000 },
-        { price: 500000, coins: 500000 },
-        { price: 1000000, coins: 1000000 },
-        { price: 2000000, coins: 2000000 },
-        { price: 5000000, coins: 5000000 },
-        { price: 10000000, coins: 10000000 }
+        { price: 20000, gems: 26000 },
+        { price: 50000, gems: 65000 },
+        { price: 100000, gems: 130000 },
+        { price: 200000, gems: 260000 },
+        { price: 500000, gems: 650000 },
+        { price: 1000000, gems: 1300000 },
+        { price: 2000000, gems: 2600000 },
+        { price: 5000000, gems: 6500000 },
+        { price: 10000000, gems: 13000000 }
+    ];
+
+    // Dữ liệu bảng giá nạp thẻ
+    const priceTableData = [
+        { amount: '10.000đ', cardRecharge: '9.000', atmRecharge: '13.000' },
+        { amount: '20.000đ', cardRecharge: '18.000', atmRecharge: '26.000' },
+        { amount: '30.000đ', cardRecharge: '27.000', atmRecharge: '39.000' },
+        { amount: '50.000đ', cardRecharge: '45.000', atmRecharge: '65.000' },
+        { amount: '100.000đ', cardRecharge: '90.000', atmRecharge: '130.000' },
+        { amount: '200.000đ', cardRecharge: '180.000', atmRecharge: '260.000' },
+        { amount: '300.000đ', cardRecharge: '270.000', atmRecharge: '390.000' },
+        { amount: '500.000đ', cardRecharge: '450.000', atmRecharge: '650.000' },
+        { amount: '1.000.000đ', cardRecharge: '900.000', atmRecharge: '1.300.000' }
     ];
 
     const handleMethodSelect = (method: PaymentMethod) => {
         setSelectedMethod(method);
         setSelectedAmount(null);
+        setCustomAmount('');
         setFormData({ provider: '', amount: '', cardCode: '', serial: '' });
     };
 
     const handleAmountSelect = (amount: number) => {
         setSelectedAmount(amount);
+        setCustomAmount('');
         setFormData(prev => ({ ...prev, amount: amount.toString() }));
+    };
+
+    const handleCustomAmountChange = (value: string) => {
+        // Chỉ cho phép số
+        const numericValue = value.replace(/[^0-9]/g, '');
+        setCustomAmount(numericValue);
+        setSelectedAmount(null);
+    };
+
+    const calculateGemsFromAmount = (amount: number) => {
+        return Math.floor(amount * 1.3); // +30%
+    };
+
+    const getDisplayAmount = () => {
+        if (customAmount && parseInt(customAmount) > 0) {
+            return parseInt(customAmount);
+        }
+        return selectedAmount;
+    };
+
+    const getDisplayGems = () => {
+        const amount = getDisplayAmount();
+        if (amount) {
+            return calculateGemsFromAmount(amount);
+        }
+        return 0;
     };
 
     const handleInputChange = (field: string, value: string) => {
@@ -49,8 +91,8 @@ const Recharge: React.FC = () => {
         return new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
     };
 
-    const formatCoins = (coins: number) => {
-        return new Intl.NumberFormat('vi-VN').format(coins) + 'Coin';
+    const formatGems = (gems: number) => {
+        return new Intl.NumberFormat('vi-VN').format(gems) + ' Ngọc';
     };
 
     return (
@@ -79,6 +121,33 @@ const Recharge: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Bảng giá nạp thẻ */}
+            <div className={styles.priceTableSection}>
+                <h3 className={styles.priceTableTitle}>Bảng Giá Nạp Thẻ</h3>
+                <div className={styles.priceTableContainer}>
+                    <div className={styles.priceTable}>
+                        <div className={styles.priceTableHeader}>
+                            <div className={styles.priceHeaderCell}>Mệnh giá</div>
+                            <div className={styles.priceHeaderCell}>Thẻ Cào (Ngọc)</div>
+                            <div className={styles.priceHeaderCell}>ATM (Ngọc)</div>
+                        </div>
+                        {priceTableData.map((row, index) => (
+                            <div key={index} className={`${styles.priceTableRow} ${index % 2 === 0 ? styles.evenRow : styles.oddRow}`}>
+                                <div className={styles.priceTableCell}>{row.amount}</div>
+                                <div className={styles.priceTableCell}>{row.cardRecharge}</div>
+                                <div className={styles.priceTableCell}>{row.atmRecharge}</div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className={styles.priceTableNote}>
+                        <p>💳 <strong>ATM:</strong> Nhận +30% mệnh giá (1.000đ = 1.300 Ngọc)</p>
+                        <p>🎫 <strong>Thẻ Cào:</strong> Nhận 90% mệnh giá (1.000đ = 900 Ngọc)</p>
+                        <p>🔄 <strong>Lưu ý:</strong> Tỷ lệ quy đổi có thể thay đổi theo từng thời điểm</p>
+                    </div>
+                </div>
+            </div>
+
             {selectedMethod === 'card' && (
                 <>
                     <div className={styles.formSection}>
@@ -180,11 +249,43 @@ const Recharge: React.FC = () => {
                                 >
                                     <div className={styles.amountPrice}>{formatCurrency(item.price)}</div>
                                     <div className={styles.amountDivider}>⸺ Nhận ⸺</div>
-                                    <div className={styles.amountCoins}>{formatCoins(item.coins)}</div>
+                                    <div className={styles.amountCoins}>{formatGems(item.gems)}</div>
                                 </div>
                             ))}
                         </div>
-                        <button className={styles.paymentButton} disabled={!selectedAmount}>
+                        
+                        {/* Custom Amount Input */}
+                        <div className={styles.customAmountSection}>
+                            <h4 className={styles.customAmountTitle}>Hoặc nhập mệnh giá tùy chỉnh</h4>
+                            <div className={styles.customAmountForm}>
+                                <div className={styles.customAmountInput}>
+                                    <input
+                                        type="text"
+                                        placeholder="Nhập số tiền (VNĐ)"
+                                        value={customAmount}
+                                        onChange={(e) => handleCustomAmountChange(e.target.value)}
+                                        className={styles.customInput}
+                                    />
+                                    <span className={styles.currencyLabel}></span>
+                                </div>
+                                {customAmount && parseInt(customAmount) > 0 && (
+                                    <div className={styles.customAmountResult}>
+                                        <div className={styles.resultAmount}>
+                                            {formatCurrency(parseInt(customAmount))}
+                                        </div>
+                                        <div className={styles.resultArrow}>⟹</div>
+                                        <div className={styles.resultGems}>
+                                            {formatGems(calculateGemsFromAmount(parseInt(customAmount)))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <button 
+                            className={styles.paymentButton} 
+                            disabled={!getDisplayAmount()}
+                        >
                             Thanh toán
                         </button>
                         <div className={styles.paymentNote}>

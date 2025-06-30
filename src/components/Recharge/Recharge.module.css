@@ -706,4 +706,419 @@
   .sectionTitle {
     font-size: 1.3rem;
   }
+}
+
+.priceTableSection {
+  margin-bottom: 30px;
+  animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+.priceTableTitle {
+  text-align: center;
+  color: #1A237E;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.priceTableContainer {
+  background: linear-gradient(145deg, 
+    rgba(232, 234, 246, 0.2), 
+    rgba(197, 202, 233, 0.15));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 
+    0 10px 30px rgba(121, 134, 203, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.priceTableContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: tableShimmer 3s ease-in-out infinite;
+}
+
+@keyframes tableShimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.priceTable {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(121, 134, 203, 0.2);
+}
+
+.priceTableHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  background: linear-gradient(135deg, #4A148C, #6A1B9A, #7E57C2);
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.priceHeaderCell {
+  padding: 15px 12px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.priceHeaderCell:last-child {
+  border-right: none;
+}
+
+.priceHeaderCell::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #E91E63, #FF4081);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.priceHeaderCell:hover::before {
+  width: 80%;
+}
+
+.priceTableRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.priceTableRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.priceTableRow:hover::before {
+  width: 100%;
+}
+
+.priceTableRow:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(121, 134, 203, 0.3);
+}
+
+.evenRow {
+  background: linear-gradient(135deg, 
+    rgba(232, 234, 246, 0.3), 
+    rgba(197, 202, 233, 0.2));
+}
+
+.oddRow {
+  background: linear-gradient(135deg, 
+    rgba(248, 187, 217, 0.2), 
+    rgba(225, 190, 231, 0.15));
+}
+
+.priceTableCell {
+  padding: 12px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: #1A237E;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.priceTableCell:last-child {
+  border-right: none;
+}
+
+.priceTableCell:first-child {
+  font-weight: bold;
+  color: #4A148C;
+  background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(142, 36, 170, 0.05));
+}
+
+.priceTableRow:hover .priceTableCell {
+  color: #1A237E;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+.priceTableNote {
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, 
+    rgba(197, 202, 233, 0.2), 
+    rgba(159, 168, 218, 0.15));
+  border-radius: 12px;
+  border-left: 4px solid #7E57C2;
+  box-shadow: 0 4px 15px rgba(121, 134, 203, 0.1);
+}
+
+.priceTableNote p {
+  margin: 8px 0;
+  color: #1A237E;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.priceTableNote strong {
+  color: #4A148C;
+}
+
+/* Responsive cho bảng giá */
+@media (max-width: 768px) {
+  .priceTableHeader,
+  .priceTableRow {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    font-size: 0.8rem;
+  }
+  
+  .priceHeaderCell,
+  .priceTableCell {
+    padding: 8px 6px;
+  }
+  
+  .priceTableContainer {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .priceTableHeader,
+  .priceTableRow {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+  
+  .priceHeaderCell,
+  .priceTableCell {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    padding: 10px 15px;
+  }
+  
+  .priceTableCell::before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    color: #4A148C;
+  }
+  
+  .priceTableNote {
+    font-size: 0.8rem;
+  }
+}
+
+/* Custom Amount Styles */
+.customAmountSection {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(145deg, 
+    rgba(232, 234, 246, 0.2), 
+    rgba(197, 202, 233, 0.15));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px rgba(121, 134, 203, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  animation: slideInUp 1s ease-out 0.3s both;
+}
+
+.customAmountTitle {
+  text-align: center;
+  color: #4A148C;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.customAmountForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.customAmountInput {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.customInput {
+  width: 100%;
+  padding: 15px 20px;
+  padding-right: 40px;
+  border: 2px solid rgba(126, 87, 194, 0.3);
+  border-radius: 15px;
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9), 
+    rgba(248, 250, 255, 0.8));
+  color: #1A237E;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 
+    0 4px 15px rgba(121, 134, 203, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.customInput:focus {
+  border-color: #7E57C2;
+  box-shadow: 
+    0 0 20px rgba(126, 87, 194, 0.4),
+    0 6px 20px rgba(121, 134, 203, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.customInput::placeholder {
+  color: rgba(26, 35, 126, 0.6);
+  font-weight: 500;
+}
+
+.currencyLabel {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4A148C;
+  font-weight: bold;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.customAmountResult {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, 
+    rgba(126, 87, 194, 0.1), 
+    rgba(142, 36, 170, 0.05));
+  border-radius: 15px;
+  border: 2px solid rgba(126, 87, 194, 0.2);
+  animation: resultSlideIn 0.5s ease-out;
+}
+
+@keyframes resultSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resultAmount {
+  color: #1A237E;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.resultArrow {
+  color: #7E57C2;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { 
+    transform: scale(1);
+    color: #7E57C2;
+  }
+  50% { 
+    transform: scale(1.2);
+    color: #E91E63;
+  }
+}
+
+.resultGems {
+  color: #4A148C;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #4A148C, #7E57C2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+  animation: gemsGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes gemsGlow {
+  0% { 
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  100% { 
+    filter: brightness(1.2);
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive cho bảng giá */
+@media (max-width: 768px) {
+  .priceTableHeader,
+  .priceTableRow {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    font-size: 0.8rem;
+  }
+  
+  .priceHeaderCell,
+  .priceTableCell {
+    padding: 8px 6px;
+  }
+  
+  .priceTableContainer {
+    padding: 15px;
+  }
+
+  .customAmountSection {
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .customAmountResult {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .resultArrow {
+    transform: rotate(90deg);
+  }
 } 

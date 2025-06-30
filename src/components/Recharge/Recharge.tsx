@@ -141,9 +141,9 @@ const Recharge: React.FC = () => {
                         ))}
                     </div>
                     <div className={styles.priceTableNote}>
-                        <p>💳 <strong>ATM:</strong> Nhận +30% mệnh giá (1.000đ = 1.300 Ngọc)</p>
-                        <p>🎫 <strong>Thẻ Cào:</strong> Nhận 90% mệnh giá (1.000đ = 900 Ngọc)</p>
-                        <p>🔄 <strong>Lưu ý:</strong> Tỷ lệ quy đổi có thể thay đổi theo từng thời điểm</p>
+                        <p><strong>ATM:</strong> Nhận +30% mệnh giá (1.000đ = 1.300 Ngọc)</p>
+                        <p><strong>Thẻ Cào:</strong> Nhận 90% mệnh giá (1.000đ = 900 Ngọc)</p>
+                        <p><strong>Lưu ý:</strong> Tỷ lệ quy đổi có thể thay đổi theo từng thời điểm</p>
                     </div>
                 </div>
             </div>

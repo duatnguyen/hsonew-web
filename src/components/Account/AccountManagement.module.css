@@ -121,24 +121,35 @@
 
 .input {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+  color: #2c3e50;
+  letter-spacing: 0.5px;
 }
 
 .input:focus {
   outline: none;
   border-color: #00c897;
-  box-shadow: 0 0 0 2px rgba(0, 200, 151, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 200, 151, 0.15);
   background: white;
+  transform: translateY(-1px);
 }
 
 .input::placeholder {
-  color: #999;
-  font-size: 0.85rem;
+  color: #95a5a6;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.input:hover {
+  border-color: rgba(0, 200, 151, 0.5);
+  background: white;
 }
 
 .error {

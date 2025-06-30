@@ -1,0 +1,53 @@
+.downloadPage {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e6fff9 100%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.downloadPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.8) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #004d40;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.pageTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #004d40, transparent);
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pageTitle::after {
+    width: 60px;
+  }
+} 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AuthModals.module.css';
 import logo from '../../assets/images/logo.png';
+import { FaSignInAlt, FaTimes, FaUser, FaLock } from 'react-icons/fa';
 import { useAuth } from '../../contexts/AuthContext';
 
 const LoginModal: React.FC = () => {
@@ -68,33 +69,50 @@ const LoginModal: React.FC = () => {
             </div>
             <form onSubmit={handleSubmit} className={styles.authForm}>
               <div className="mb-3">
-                <input
-                  type="text"
-                  name="username"
-                  className="form-control"
-                  placeholder="Tên đăng nhập"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
+                <label className="form-label">Tên đăng nhập</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <FaUser />
+                  </span>
+                  <input
+                    type="text"
+                    name="username"
+                    className="form-control"
+                    placeholder="Nhập tên đăng nhập"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
               <div className="mb-3">
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  placeholder="Mật khẩu"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+                <label className="form-label">Mật khẩu</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <FaLock />
+                  </span>
+                  <input
+                    type="password"
+                    name="password"
+                    className="form-control"
+                    placeholder="Nhập mật khẩu"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
               <div className={styles.modalActions}>
-                <button type="submit" className="btn btn-primary me-2">
-                  Đăng nhập
+                <button type="submit" className={styles.submitButton} title="Đăng nhập">
+                  <FaSignInAlt />
                 </button>
-                <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
-                  Hủy bỏ
+                <button 
+                  type="button" 
+                  className={styles.cancelButton} 
+                  data-bs-dismiss="modal"
+                  title="Hủy bỏ"
+                >
+                  <FaTimes />
                 </button>
               </div>
               <div className={styles.modalLinks}>

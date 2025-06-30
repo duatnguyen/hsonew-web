@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './PostList.module.css';
 import avatar from '../../assets/images/avatar.gif';
 
@@ -11,7 +12,7 @@ interface Post {
 
 const PostList: React.FC = () => {
   const posts: Post[] = [
-    { id: 10, title: '💥HSO NEW 2025 - Khai mở chính thức💥', author: 'ADMIN', image: avatar },
+    { id: 1, title: '💥HSO NEW 2025 - Khai mở chính thức💥', author: 'ADMIN', image: avatar },
     { id: 9, title: 'SỰ KIỆN MÙA HÈ 2025', author: 'ADMIN', image: avatar },
     { id: 7, title: 'Hướng dẫn - Chức năng LÔI ĐÀI', author: 'ADMIN', image: avatar },
     { id: 6, title: 'Hướng Dẫn - Chức năng CHIẾN TRƯỜNG', author: 'ADMIN', image: avatar },
@@ -30,9 +31,9 @@ const PostList: React.FC = () => {
               <img src={post.image} alt={post.title} />
             </div>
             <div className={styles.postContent}>
-              <a href={`/post/${post.id}`} className={styles.postTitle}>
+              <Link to={`/post/${post.id}`} className={styles.postTitle}>
                 {post.title}
-              </a>
+              </Link>
               <div className={styles.postMeta}>
                 Đăng bởi <span className={styles.author}>{post.author}</span>
               </div>

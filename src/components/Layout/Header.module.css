@@ -55,7 +55,7 @@
     0 2px 4px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  min-width: 200px;
+  min-width: auto;
   max-width: 100%;
 }
 
@@ -92,7 +92,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px;
+  max-width: auto;
 }
 
 .buttonContainer {
@@ -326,11 +326,11 @@
   .userInfo {
     padding: 0.4rem 0.75rem;
     gap: 0.35rem;
-    min-width: 160px;
+    min-width: 220px;
   }
 
   .username {
-    max-width: 80px;
+    max-width: 140px;
   }
 
   .iconButton {
@@ -370,6 +370,11 @@
     width: 100%;
     text-align: center;
     align-items: center;
+    min-width: auto;
+  }
+
+  .username {
+    max-width: 160px;
   }
 }
 

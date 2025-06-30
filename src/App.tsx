@@ -10,6 +10,10 @@ import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AccountPage from './pages/AccountPage';
 import HomePage from './pages/HomePage';
+import DownloadPage from './pages/DownloadPage';
+import PostDetail from './pages/PostDetail';
+import ageRuleImg from './assets/images/age-rule.jpg';
+import RankingPage from './pages/RankingPage';
 
 const App: React.FC = () => {
   return (
@@ -25,10 +29,13 @@ const App: React.FC = () => {
                 <Route path="/" element={<Navigate to="/trangchu" replace />} />
                 <Route path="/trangchu" element={<HomePage />} />
                 <Route path="/account" element={<AccountPage />} />
+                <Route path="/download" element={<DownloadPage />} />
+                <Route path="/post/:id" element={<PostDetail />} />
+                <Route path="/ranking" element={<RankingPage />} />
               </Routes>
               <footer className="footer">
                 <div className="age-rule">
-                  <img src="/age-rule.jpg" alt="Age Rule" height="12" />
+                  <img src={ageRuleImg} alt="Age Rule" height="12" />
                   <span>
                     Trò chơi dành cho người chơi 12 tuổi trở lên. Chơi quá 180 phút mỗi ngày sẽ có hại cho sức khỏe
                   </span>

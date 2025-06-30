@@ -5,8 +5,8 @@ import styles from './Navigation.module.css';
 const Navigation: React.FC = () => {
   const menuItems = [
     { label: 'Trang chủ', to: '/trangchu' },
-    { label: 'Giftcode', to: '/recharge/tt', requiresAuth: true },
-    { label: 'Nạp Ngọc', to: '/recharge', requiresAuth: true },
+    { label: 'Giftcode', to: '/recharge/tt' },
+    { label: 'Nạp Ngọc', to: '/recharge' },
     { label: 'Box Zalo', to: '/community' },
   ];
 
@@ -18,8 +18,8 @@ const Navigation: React.FC = () => {
             <NavLink
               to={item.to}
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
-              data-bs-toggle={item.requiresAuth ? 'modal' : undefined}
-              data-bs-target={item.requiresAuth ? '#login-modal' : undefined}
+            // data-bs-toggle={item.requiresAuth ? 'modal' : undefined}
+            // data-bs-target={item.requiresAuth ? '#login-modal' : undefined}
             >
               {item.label}
             </NavLink>

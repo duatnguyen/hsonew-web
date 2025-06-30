@@ -1,0 +1,117 @@
+.modalHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  margin: -1rem -1rem 1.5rem -1rem;
+}
+
+.modalLogo {
+  max-width: 180px;
+  height: auto;
+}
+
+.authForm {
+  padding: 0 1rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.modalLinks {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.link {
+  color: #00c897;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #00a36c;
+  text-decoration: underline;
+}
+
+.actionButton {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.submitButton {
+  composes: actionButton;
+  background: linear-gradient(45deg, #00c897, #00a36c);
+}
+
+.submitButton:hover {
+  background: linear-gradient(45deg, #00e0a5, #009c68);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 200, 151, 0.3);
+}
+
+.cancelButton {
+  composes: actionButton;
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+.cancelButton:hover {
+  background: linear-gradient(45deg, #f15849, #d14233);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+}
+
+/* Bootstrap overrides */
+:global(.modal-content) {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+:global(.modal-body) {
+  padding: 1rem;
+}
+
+:global(.form-control) {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+:global(.form-control:focus) {
+  border-color: #00c897;
+  box-shadow: 0 0 0 2px rgba(0, 200, 151, 0.25);
+  background: white;
+}
+
+:global(.form-label) {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 0.3rem;
+} 

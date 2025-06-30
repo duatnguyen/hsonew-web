@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html translate="no">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="icon" href="https://huyenthoaihiepsi.com/logo.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="title" content="HTHS - Huyền Thoại Hiệp Sĩ">
+    <meta name="description" content="HTHS - Huyền Thoại Hiệp Sĩ">
+    <meta name="keywords" content="hso, hths, teamobi, gomobi">
+    <meta name="author" content="HTHS">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://HuyenThoaiHiepSi.Com/">
+    <meta property="og:title" content="HTHS - Huyền Thoại Hiệp Sĩ">
+    <meta property="og:description" content="Tham gia Huyền Thoại Hiệp Sĩ ngay để gia nhập thế giới đầy phép màu">
+    <meta property="og:image" content="/baner.jpg">
+    <meta property="og:image:alt" content="HuyenThoaiHiepSi.Com">
+    <link rel="apple-touch-icon" href="https://huyenthoaihiepsi.com/logo.png">
+    <link rel="manifest" href="https://huyenthoaihiepsi.com/manifest.json">
+    <title>HTHS - Huyền Thoại Hiệp Sĩ</title>
+    <script src="./HTHS - Huyền Thoại Hiệp Sĩ_files/bootstrap.min.js.download"></script>
+    <script src="./HTHS - Huyền Thoại Hiệp Sĩ_files/jquery.min.js.download"></script>
+    <script src="./HTHS - Huyền Thoại Hiệp Sĩ_files/notiflix-aio.js.download"></script>
+    <script src="./HTHS - Huyền Thoại Hiệp Sĩ_files/typed.js@2.0.12"></script>
+    <script src="./HTHS - Huyền Thoại Hiệp Sĩ_files/TiMi.js.download"></script>
+    <style id="NotiflixReportInternalCSS">
+        [id^=NotiflixReportWrap] {
+            position: fixed;
+            z-index: 4002;
+            width: 100%;
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            left: 0;
+            top: 0;
+            padding: 10px;
+            color: #1e1e1e;
+            border-radius: 25px;
+            background: transparent;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center
+        }
+
+        [id^=NotiflixReportWrap] * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-overlay"] {
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: rgba(255, 255, 255, .5);
+            position: fixed;
+            z-index: 0
+        }
+
+        [id^=NotiflixReportWrap]>div.nx-report-click-to-close {
+            cursor: pointer
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"] {
+            width: 320px;
+            max-width: 100%;
+            max-height: 96vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            border-radius: inherit;
+            padding: 10px;
+            -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.05));
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, .05));
+            border: 1px solid rgba(0, 0, 0, .03);
+            background: #f8f8f8;
+            position: relative;
+            z-index: 1
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"]::-webkit-scrollbar {
+            width: 0;
+            height: 0
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"]::-webkit-scrollbar-thumb {
+            background: transparent
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"]::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"]>div[class$="-icon"] {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            width: 110px;
+            height: 110px;
+            display: block;
+            margin: 6px auto 12px
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"]>div[class$="-icon"] svg {
+            min-width: 100%;
+            max-width: 100%;
+            height: auto
+        }
+
+        [id^=NotiflixReportWrap]>*>h5 {
+            word-break: break-all;
+            word-break: break-word;
+            font-family: inherit !important;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin: 0 0 10px;
+            padding: 0 0 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+            float: left;
+            width: 100%;
+            text-align: center
+        }
+
+        [id^=NotiflixReportWrap]>*>p {
+            word-break: break-all;
+            word-break: break-word;
+            font-family: inherit !important;
+            font-size: 13px;
+            line-height: 1.4;
+            font-weight: normal;
+            float: left;
+            width: 100%;
+            padding: 0 10px;
+            margin: 0 0 10px
+        }
+
+        [id^=NotiflixReportWrap] a#NXReportButton {
+            word-break: break-all;
+            word-break: break-word;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: inherit !important;
+            -webkit-transition: all .25s ease-in-out;
+            -o-transition: all .25s ease-in-out;
+            transition: all .25s ease-in-out;
+            cursor: pointer;
+            float: right;
+            padding: 7px 17px;
+            background: #32c682;
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 500;
+            border-radius: inherit !important;
+            color: #fff
+        }
+
+        [id^=NotiflixReportWrap] a#NXReportButton:hover {
+            -webkit-box-shadow: inset 0 -60px 5px -5px rgba(0, 0, 0, .25);
+            box-shadow: inset 0 -60px 5px -5px rgba(0, 0, 0, .25)
+        }
+
+        [id^=NotiflixReportWrap].nx-rtl-on a#NXReportButton {
+            float: left
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-overlay"].nx-with-animation {
+            -webkit-animation: report-overlay-animation .3s ease-in-out 0s normal;
+            animation: report-overlay-animation .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-overlay-animation {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes report-overlay-animation {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"].nx-with-animation.nx-fade {
+            -webkit-animation: report-animation-fade .3s ease-in-out 0s normal;
+            animation: report-animation-fade .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-animation-fade {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes report-animation-fade {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        [id^=NotiflixReportWrap]>div[class*="-content"].nx-with-animation.nx-zoom {
+            -webkit-animation: report-animation-zoom .3s ease-in-out 0s normal;
+            animation: report-animation-zoom .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-animation-zoom {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(.5);
+                transform: scale(.5)
+            }
+
+            50% {
+                opacity: 1;
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+        }
+
+        @keyframes report-animation-zoom {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(.5);
+                transform: scale(.5)
+            }
+
+            50% {
+                opacity: 1;
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+        }
+
+        [id^=NotiflixReportWrap].nx-remove>div[class*="-overlay"].nx-with-animation {
+            opacity: 0;
+            -webkit-animation: report-overlay-animation-remove .3s ease-in-out 0s normal;
+            animation: report-overlay-animation-remove .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-overlay-animation-remove {
+            0% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
+
+        @keyframes report-overlay-animation-remove {
+            0% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
+
+        [id^=NotiflixReportWrap].nx-remove>div[class*="-content"].nx-with-animation.nx-fade {
+            opacity: 0;
+            -webkit-animation: report-animation-fade-remove .3s ease-in-out 0s normal;
+            animation: report-animation-fade-remove .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-animation-fade-remove {
+            0% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
+
+        @keyframes report-animation-fade-remove {
+            0% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
+
+        [id^=NotiflixReportWrap].nx-remove>div[class*="-content"].nx-with-animation.nx-zoom {
+            opacity: 0;
+            -webkit-animation: report-animation-zoom-remove .3s ease-in-out 0s normal;
+            animation: report-animation-zoom-remove .3s ease-in-out 0s normal
+        }
+
+        @-webkit-keyframes report-animation-zoom-remove {
+            0% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05)
+            }
+
+            100% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+
+        @keyframes report-animation-zoom-remove {
+            0% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05)
+            }
+
+            100% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+    </style>
+    <link href="./HTHS - Huyền Thoại Hiệp Sĩ_files/main.9858dd6f_old.css" rel="stylesheet">
+
+</head>
+
+<body style="" class="">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="background"></div>
+        <div id="hello-container"></div>
+        <div id="container" class="container">
+            <div class="main">
+                <div class="text-center card">
+                    <div class="card-body">
+                        <div class=""><a href="https://huyenthoaihiepsi.com/"><img class="logo" alt="Logo"
+                                    src="./HTHS - Huyền Thoại Hiệp Sĩ_files/logo.gif" style="max-width: 250px;"></a>
+                        </div>
+                        <div class="mt-3">
+
+                            <div class="mt-3">
+                                <span data-bs-toggle="modal" data-bs-target="#login-modal"
+                                    class="btn btn-success py-1">Đăng nhập</span>
+                                <span data-bs-toggle="modal" data-bs-target="#register-modal"
+                                    class="btn btn-success py-1 ms-2">Đăng ký</span>
+                            </div>
+                            <div class="mt-3"><a class="btn btn-success py-1"
+                                    href="https://huyenthoaihiepsi.com/download">TẢI GAME
+                                    <svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 29.978 29.978" xml:space="preserve" class="download-icon">
+                                        <g>
+                                            <path d="M25.462,19.105v6.848H4.515v-6.848H0.489v8.861c0,1.111,0.9,2.012,2.016,2.012h24.967c1.115,0,2.016-0.9,2.016-2.012
+		v-8.861H25.462z"></path>
+                                            <path d="M14.62,18.426l-5.764-6.965c0,0-0.877-0.828,0.074-0.828s3.248,0,3.248,0s0-0.557,0-1.416c0-2.449,0-6.906,0-8.723
+		c0,0-0.129-0.494,0.615-0.494c0.75,0,4.035,0,4.572,0c0.536,0,0.524,0.416,0.524,0.416c0,1.762,0,6.373,0,8.742
+		c0,0.768,0,1.266,0,1.266s1.842,0,2.998,0c1.154,0,0.285,0.867,0.285,0.867s-4.904,6.51-5.588,7.193
+		C15.092,18.979,14.62,18.426,14.62,18.426z"></path>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                            <g></g>
+                                        </g>
+                                    </svg>
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="row text-center justify-content-center row-cols-2 row-cols-lg-6 g-2 g-lg-2 mt-1">
+                        <div class="col">
+                            <div class="px-2"><a class="btn btn-menu btn-success w-100 fw-semibold active"
+                                    href="https://huyenthoaihiepsi.com/">Trang
+                                    chủ</a></div>
+                        </div>
+                        <div class="col">
+                            <div class="px-2"><a data-bs-toggle="modal" data-bs-target="#login-modal"
+                                    class="btn btn-menu btn-success w-100 fw-semibold false"
+                                    href="https://huyenthoaihiepsi.com/recharge/tt">Nạp Tân Thủ</a></div>
+                        </div>
+                        <div class="col">
+                            <div class="px-2"><a data-bs-toggle="modal" data-bs-target="#login-modal"
+                                    class="btn btn-menu btn-success w-100 fw-semibold false"
+                                    href="https://huyenthoaihiepsi.com/recharge">Nạp
+                                    Coin</a></div>
+                        </div>
+                        <div class="col">
+                            <div class="px-2"><a data-bs-toggle="modal" data-bs-target="#login-modal"
+                                    class="btn btn-menu btn-success w-100 fw-semibold false"
+                                    href="https://huyenthoaihiepsi.com/exchange">Đổi
+                                    Ngọc</a></div>
+                        </div>
+
+                        <div class="col">
+                            <div class="px-2"><a class="btn btn-menu btn-success w-100 fw-semibold false"
+                                    href="https://huyenthoaihiepsi.com/community">Box
+                                    Zalo</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title h5">Bài viết mới</div>
+                        <hr>
+                        <div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Tích Lũy Đổi Lượng"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/10">Tích
+                                        Lũy Đổi Lượng</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="SỰ KIỆN MÙA HÈ 2025"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/9">SỰ KIỆN
+                                        MÙA HÈ 2025</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="💥HIỆP SĨ ONLINE- Huyền Thoại Hiệp Sĩ 💥"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/8">💥HIỆP
+                                        SĨ ONLINE- Huyền Thoại Hiệp Sĩ 💥</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng dẫn - Chức năng LÔI ĐÀI"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/7">Hướng
+                                        dẫn - Chức năng LÔI ĐÀI</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng Dẫn - Chức năng CHIẾN TRƯỜNG"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/6">Hướng
+                                        Dẫn - Chức năng CHIẾN TRƯỜNG</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Vùng đất Paragon mùa mới"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/5">Vùng đất
+                                        Paragon mùa mới</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng Dẫn - Chức năng BOSS PHE"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/4">Hướng
+                                        Dẫn - Chức năng BOSS PHE</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng Dẫn - Chức Năng ĐI BUÔN"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/3">Hướng
+                                        Dẫn - Chức Năng ĐI BUÔN</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng Dẫn - Chức Năng CHIẾM THÀNH"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/2">Hướng
+                                        Dẫn - Chức Năng CHIẾM THÀNH</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Hướng Dẫn - Chức năng CHIẾM MỎ"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/1">Hướng
+                                        Dẫn - Chức năng CHIẾM MỎ</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Cẩm Nang Tân Thủ Cho Người Mới"></div>
+                                <div><a class="fw-bold link-primary" href="https://huyenthoaihiepsi.com/post/0">Cẩm Nang
+                                        Tân Thủ Cho Người Mới</a>
+                                    <div class="text-muted font-weight-bold">Đăng bởi <span
+                                            class="text-danger fw-bold">ADMIN</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2 card-title h5">Bảng Xếp Hạng</div>
+                        <hr>
+                        <div>
+
+                            <div class="post-item d-flex align-items-center my-2">
+                                <div class="post-image"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/avatar.gif"
+                                        alt="Bảng Xếp Hạng"></div>
+                                <div><a class="fw-bold text-danger"
+                                        href="https://huyenthoaihiepsi.com/bang-xep-hang">Bảng Xếp Hạng</a>
+                                    <div class="text-muted font-weight-bold">Bảng Xếp Hạng Những Cá Nhân, Tổ Chức Mạnh
+                                        Mẽ Nhất</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mt-4">
+                            <div class="card-title h5">Giới thiệu</div>
+                            <hr>
+                            <div class="mx-2 fs-6">
+                                <p>🎮 Chào mừng đến với <strong style="color: rgb(243, 156, 18);">Thời Đại Hiệp
+                                        Sĩ</strong>! ⚔️</p>
+                                <p>
+                                    Nếu bạn đã từng mơ ước trở thành một hiệp sĩ oai phong, phiêu lưu khắp chốn giang
+                                    hồ, đánh bại quái vật và săn tìm kho báu, thì <span class="highlight">Thời Đại Hiệp
+                                        Sĩ</span> chính là thế giới dành cho bạn! 🏰
+                                </p>
+                                <p>
+                                    Đây là một tựa game MMORPG 2D kinh điển, nơi bạn có thể chọn một trong bốn lớp nhân
+                                    vật đặc trưng: <span class="highlight">Chiến Binh</span> mạnh mẽ, <span
+                                        class="highlight">Pháp Sư</span> quyền năng, <span class="highlight">Sát
+                                        Thủ</span> nhanh nhẹn hoặc <span class="highlight">Xạ Thủ</span> tinh nhuệ. Mỗi
+                                    nhân vật đều có những kỹ năng bá đạo và phong cách chiến đấu riêng, giúp bạn khẳng
+                                    định bản lĩnh trên chiến trường. 🔥
+                                </p>
+                                <p class="fun">
+                                    Còn gì vui hơn khi có thể tụ tập anh em, lập tổ đội chiến đấu với boss khủng, farm
+                                    quái cả ngày mà không chán? Bạn còn có thể tham gia các trận chiến PvP gay cấn, săn
+                                    đồ hiếm, giao dịch với người chơi khác và thậm chí kết hôn trong game! 💍🎉
+                                </p>
+                                <p>
+                                    Với đồ họa đơn giản nhưng đầy màu sắc, cùng gameplay hấp dẫn và cộng đồng game thủ
+                                    đông đảo, <span class="highlight">Thời Đại Hiệp Sĩ</span> đã trở thành một phần tuổi
+                                    thơ của biết bao game thủ. Bạn đã sẵn sàng lên đường chinh phục thế giới hiệp sĩ
+                                    chưa? 🏹🛡️
+                                </p>
+                                <p class="fun">
+                                    Hãy cầm kiếm lên, trang bị giáp thật ngầu và bước vào hành trình vĩ đại ngay thôi!
+                                    🚀
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#thongBaoModal').modal('show');
+                    });
+                </script>
+                <style>
+                    /* Nền modal */
+                    #thongBaoModal .modal-content {
+                        border-radius: 12px;
+                        background: #daf8e3;
+                        /* Xanh ngọc nhạt */
+                        box-shadow: 0px 10px 30px rgba(0, 128, 96, 0.3);
+                        border: 1px solid rgba(0, 128, 96, 0.5);
+                        color: #064635;
+                        /* Xanh đậm hơn để dễ đọc */
+                    }
+
+                    /* Tiêu đề */
+                    #thongBaoModal .modal-title {
+                        font-weight: bold;
+                        color: #008060;
+                        /* Xanh lục nhẹ */
+                    }
+
+                    /* Nút */
+                    .btn-custom {
+                        background: linear-gradient(45deg, #00c897, #00a36c);
+                        /* Xanh lục nhạt */
+                        color: white;
+                        font-weight: bold;
+                        border-radius: 10px;
+                        transition: all 0.3s ease-in-out;
+                        border: none;
+                    }
+
+                    .btn-custom:hover {
+                        background: linear-gradient(45deg, #00e0a5, #009c68);
+                        transform: scale(1.05);
+                    }
+
+                    /* Nút đóng */
+                    .btn-close-custom {
+                        color: #064635;
+                        font-size: 1.2rem;
+                    }
+
+                    /* Nút Đóng */
+                    .btn-close-custom {
+                        color: #064635;
+                        font-size: 1.2rem;
+                    }
+
+                    /* Nút Đóng ở dưới cùng */
+                    .btn-close-footer {
+                        background: #b3e0d1;
+                        /* Xanh ngọc nhạt */
+                        color: #064635;
+                        /* Xanh đậm */
+                        font-weight: bold;
+                        border-radius: 10px;
+                        transition: all 0.3s ease-in-out;
+                        border: none;
+                    }
+
+                    .btn-close-footer:hover {
+                        background: #99d6c2;
+                        /* Xanh ngọc đậm hơn */
+                        transform: scale(1.05);
+                    }
+                </style>
+                <div class="modal fade" id="thongBaoModal" tabindex="-1" aria-labelledby="thongBaoModalLabel"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content text-center p-3">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title w-100" id="thongBaoModalLabel">🚀 THÔNG BÁO</h5>
+                                <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Chào mừng bạn đến với <strong style="color: deeppink">HTHS</strong> - <strong
+                                        style="color: blueviolet">Thời Đại Hiệp Sĩ</strong>!</p>
+                                <a href="https://zalo.me/g/rjagqg623" class="btn btn-custom w-100 my-2" target="_blank">
+                                    🎁 Nhận Code
+                                </a>
+
+                                <a href="https://zalo.me/g/rjagqg623" class="btn btn-custom w-100 my-2" target="_blank">
+                                    📱 Box Zalo
+                                </a>
+
+                                <a href="https://huyenthoaihiepsi.com/#" class="btn btn-custom w-100 my-2"
+                                    target="_blank">
+                                    🌐 Fanpage
+                                </a>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn btn-close-footer w-100"
+                                    data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center my-2">
+                    <div class="age-rule"><img src="./HTHS - Huyền Thoại Hiệp Sĩ_files/age-rule.jpg" alt="Age Rule"
+                            height="12"><span>Trò chơi dành cho người chơi 12 tuổi trở lên. Chơi quá 180 phút mỗi ngày
+                            sẽ có hại cho sức khỏe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="login-modal" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="my-2">
+                        <div class="text-center"><a href="https://huyenthoaihiepsi.com/"><img class="logo" alt="Logo"
+                                    src="./HTHS - Huyền Thoại Hiệp Sĩ_files/logo.gif" style="max-width: 200px;"></a>
+                        </div>
+                    </div>
+                    <form action="https://huyenthoaihiepsi.com/auth/login" method="POST" class="timi-form py-3 mx-3">
+                        <div class="alert-mess"></div>
+                        <div class="mb-2">
+                            <div class="input-group"><input name="username" type="text" autocomplete="off"
+                                    placeholder="Tên đăng nhập" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="input-group"><input name="password" type="password" autocomplete="off"
+                                    placeholder="Mật khẩu" class="form-control form-control-solid" value="" required="">
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="me-3 btn btn-primary">Đăng nhập</button>
+                            <button type="button" class="btn btn-danger">Hủy bỏ</button>
+                            <div class="pt-3">Bạn chưa có tài khoản? <span data-bs-toggle="modal"
+                                    data-bs-target="#register-modal" class="link-warning cursor-pointer">Đăng ký
+                                    ngay</span>
+                            </div>
+                            <div><span data-bs-toggle="modal" data-bs-target="#reset-password-modal"
+                                    class="link-warning cursor-pointer">Quên mật khẩu</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="register-modal" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="my-2">
+                        <div class="text-center"><a href="https://huyenthoaihiepsi.com/"><img class="logo" alt="Logo"
+                                    src="./HTHS - Huyền Thoại Hiệp Sĩ_files/logo.gif" style="max-width: 200px;"></a>
+                        </div>
+                    </div>
+                    <form action="https://huyenthoaihiepsi.com/auth/register" method="POST" class="timi-form py-3 mx-3">
+                        <div class="alert-mess"></div>
+                        <div class="mb-2"><label class="fw-semibold">Tên đăng nhập</label>
+                            <div class="input-group"><input name="username" type="text" autocomplete="off"
+                                    placeholder="Nhập tên đăng nhập" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Số điện thoại</label>
+                            <div class="input-group"><input name="phone" type="text" autocomplete="off"
+                                    placeholder="Nhập số điện thoại" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Mật khẩu</label>
+                            <div class="input-group"><input name="password" type="password" autocomplete="off"
+                                    placeholder="Nhập mật khẩu" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Nhập lại mật khẩu</label>
+                            <div class="input-group"><input name="confirm_password" type="password" autocomplete="off"
+                                    placeholder="Nhập nhập lại mật khẩu" class="form-control form-control-solid"
+                                    value="" required="">
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="me-3 btn btn-primary">Đăng ký</button>
+                            <button type="button" class="btn btn-danger">Hủy bỏ</button>
+                            <div class="pt-3">Bạn đã có tài khoản? <span data-bs-toggle="modal"
+                                    data-bs-target="#login-modal" class="link-warning cursor-pointer">Đăng nhập
+                                    ngay</span>
+                            </div>
+                            <div><span data-bs-toggle="modal" data-bs-target="#reset-password-modal"
+                                    class="link-warning cursor-pointer">Quên mật khẩu</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-password-modal" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="my-2">
+                        <div class="text-center"><a href="https://huyenthoaihiepsi.com/home"><img class="logo"
+                                    alt="Logo" src="./HTHS - Huyền Thoại Hiệp Sĩ_files/logo.gif"
+                                    style="max-width: 200px;"></a></div>
+                    </div>
+                    <form action="https://huyenthoaihiepsi.com/auth/password/reset-via-phone" method="POST"
+                        class="timi-form py-3 mx-3">
+                        <div class="mb-2"><label class="fw-semibold">Tên đăng nhập</label>
+                            <div class="input-group"><input name="username" type="text" autocomplete="off"
+                                    placeholder="Nhập tên đăng nhập" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Số điện thoại đăng ký</label>
+                            <div class="input-group"><input name="phone" type="text" autocomplete="off"
+                                    placeholder="Nhập số điện thoại đăng ký" class="form-control form-control-solid"
+                                    value="" required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Mã OTP</label>
+                            <div class="input-group"><input name="code" type="text" autocomplete="off"
+                                    placeholder="Nhập mã OTP đã nhận" class="form-control form-control-solid"
+                                    pattern="\d*" maxlength="6" value="" required="">
+                                <button id="btnGetOTP" class="btn btn-danger" type="button">Gửi mã OTP</button>
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Mật khẩu mới</label>
+                            <div class="input-group"><input name="password" type="password" autocomplete="off"
+                                    placeholder="Nhập mật khẩu mới" class="form-control form-control-solid" value=""
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="mb-2"><label class="fw-semibold">Nhập lại mật khẩu mới</label>
+                            <div class="input-group"><input name="confirm_password" type="password" autocomplete="off"
+                                    placeholder="Nhập nhập lại mật khẩu mới" class="form-control form-control-solid"
+                                    value="" required="">
+                            </div>
+                        </div>
+                        <div style="margin-top: -10px;"></div>
+                        <div id="recaptcha-container-36548" class="mb-3"></div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="me-3 btn btn-primary">Xác nhận</button>
+                            <button type="button" class="btn btn-danger">Hủy bỏ</button>
+                            <div class="pt-3">Bạn đã có tài khoản? <span data-bs-toggle="modal"
+                                    data-bs-target="#login-modal" class="link-warning cursor-pointer">Đăng nhập
+                                    ngay</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

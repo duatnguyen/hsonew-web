@@ -14,6 +14,7 @@ import DownloadPage from './pages/DownloadPage';
 import PostDetail from './pages/PostDetail';
 import ageRuleImg from './assets/images/age-rule.jpg';
 import RankingPage from './pages/RankingPage';
+import RechargePage from './pages/RechargePage';
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                 <Route path="/download" element={<DownloadPage />} />
                 <Route path="/post/:id" element={<PostDetail />} />
                 <Route path="/ranking" element={<RankingPage />} />
+                <Route path="/recharge" element={<RechargePage />} />
               </Routes>
               <footer className="footer">
                 <div className="age-rule">

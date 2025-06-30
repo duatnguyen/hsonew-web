@@ -55,16 +55,8 @@
     0 8px 25px rgba(121, 134, 203, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  transform-style: preserve-3d;
-  perspective: 1000px;
   position: relative;
   overflow: hidden;
-  animation: cardFloat 6s ease-in-out infinite;
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0px) rotateX(0deg); }
-  50% { transform: translateY(-5px) rotateX(2deg); }
 }
 
 .methodCard::before {
@@ -100,7 +92,7 @@
     0 0 25px rgba(233, 30, 99, 0.3),
     0 12px 30px rgba(233, 30, 99, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: scale(1.08) translateY(-8px) rotateX(10deg);
+  transform: scale(1.05) translateY(-5px);
   animation: selectedGlow 2s ease-in-out infinite alternate;
 }
 
@@ -129,22 +121,20 @@
 
 @keyframes selectedIconSpin {
   0%, 100% { 
-    transform: rotateY(0deg) scale(1.1);
+    transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(126, 87, 194, 0.4);
   }
   50% { 
-    transform: rotateY(180deg) scale(1.15);
+    transform: scale(1.15);
     box-shadow: 0 8px 25px rgba(126, 87, 194, 0.6);
   }
 }
 
 .methodCard:hover {
-  transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: 
-    0 15px 35px rgba(121, 134, 203, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(121, 134, 203, 0.3) inset;
-  animation-play-state: paused;
+    0 12px 25px rgba(121, 134, 203, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .methodCard:hover::before {
@@ -157,7 +147,7 @@
 }
 
 .methodCard:hover .methodIcon {
-  transform: rotateY(360deg) scale(1.1);
+  transform: scale(1.1);
   animation: iconPulse 1s ease infinite;
 }
 
@@ -182,8 +172,7 @@
   font-size: 32px;
   color: white;
   box-shadow: 0 6px 15px rgba(126, 87, 194, 0.4);
-  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transform-style: preserve-3d;
+  transition: all 0.3s ease;
   position: relative;
 }
 
@@ -430,17 +419,15 @@
       0 0 40px rgba(33, 150, 243, 1),
       0 20px 40px rgba(33, 150, 243, 0.6),
       0 0 80px rgba(33, 150, 243, 0.5);
-    transform: scale(1.1) translateY(-12px) rotateX(8deg);
+    transform: scale(1.05) translateY(-8px);
   }
 }
 
 .amountCard:hover {
-  transform: translateY(-8px) rotateX(8deg) rotateY(2deg) scale(1.05);
+  transform: translateY(-5px) scale(1.03);
   box-shadow: 
-    0 15px 30px rgba(186, 104, 200, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(186, 104, 200, 0.3);
-  animation-play-state: paused;
+    0 12px 25px rgba(186, 104, 200, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .amountCard:hover::before {
@@ -465,8 +452,9 @@
 }
 
 @keyframes coinsSpin {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .amountPrice {
@@ -502,27 +490,16 @@
   font-size: 1.3rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.3s ease;
   margin: 25px 0;
   box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   position: relative;
   overflow: hidden;
-  transform-style: preserve-3d;
-  animation: buttonGlow 3s ease-in-out infinite;
 }
 
-@keyframes buttonGlow {
-  0%, 100% { 
-    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
-  }
-  50% { 
-    box-shadow: 
-      0 8px 25px rgba(33, 150, 243, 0.6),
-      0 0 30px rgba(33, 150, 243, 0.3);
-  }
-}
+
 
 .paymentButton::before {
   content: '';
@@ -555,12 +532,10 @@
 
 .paymentButton:not(:disabled):hover {
   background: linear-gradient(145deg, #1976D2, #1565C0);
-  transform: translateY(-8px) rotateX(8deg) scale(1.05);
+  transform: translateY(-5px) scale(1.02);
   box-shadow: 
-    0 20px 40px rgba(33, 150, 243, 0.6),
-    0 0 30px rgba(33, 150, 243, 0.4),
-    0 0 60px rgba(33, 150, 243, 0.2);
-  animation-play-state: paused;
+    0 15px 30px rgba(33, 150, 243, 0.6),
+    0 0 20px rgba(33, 150, 243, 0.4);
 }
 
 .paymentButton:not(:disabled):hover::before {
@@ -568,7 +543,7 @@
 }
 
 .paymentButton:not(:disabled):active {
-  transform: translateY(-4px) rotateX(4deg) scale(0.98);
+  transform: translateY(-2px) scale(0.98);
   transition: all 0.1s ease;
 }
 

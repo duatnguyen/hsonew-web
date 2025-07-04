@@ -52,7 +52,7 @@ public class AccountService {
      */
     public Account login(String loginId, String password) throws Exception {
         // Tìm account theo username hoặc email
-        Optional<Account> accountOpt = accountRepository.findByUsernameOrEmailAndActive(loginId);
+        Optional<Account> accountOpt = accountRepository.findByUsernameAndActive(loginId);
         
         if (!accountOpt.isPresent()) {
             throw new Exception("Tài khoản không tồn tại hoặc đã bị khóa");

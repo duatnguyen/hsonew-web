@@ -28,10 +28,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByUsernameOrEmail(@Param("loginId") String loginId);
     
     // Tìm account active theo username (status = 1 và lock = 0)
-    @Query("SELECT a FROM Account a WHERE a.username = :username AND a.status = 1 AND a.lock = 0")
+    @Query("SELECT a FROM Account a WHERE a.username = :username AND a.status = 0 AND a.lock = 0")
     Optional<Account> findByUsernameAndActive(@Param("username") String username);
     
     // Tìm account active theo username hoặc email
-    @Query("SELECT a FROM Account a WHERE (a.username = :loginId OR a.email = :loginId) AND a.status = 1 AND a.lock = 0")
+    @Query("SELECT a FROM Account a WHERE (a.username = :loginId OR a.email = :loginId) AND a.status = 0 AND a.lock = 0")
     Optional<Account> findByUsernameOrEmailAndActive(@Param("loginId") String loginId);
 } 

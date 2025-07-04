@@ -1,7 +1,6 @@
 package com.exmple.hsonew.dtos.request;
 
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

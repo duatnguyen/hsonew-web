@@ -5,12 +5,12 @@ import com.exmple.hsonew.dtos.request.LoginRequest;
 import com.exmple.hsonew.dtos.request.RegisterRequest;
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.services.AccountService;
+import com.exmple.hsonew.dtos.response.ApiResponse;
+import com.exmple.hsonew.dtos.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -21,143 +21,98 @@ public class AuthController {
     private AccountService accountService;
     
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody RegisterRequest request) {
-        Map<String, Object> response = new HashMap<>();
-        
+    public ResponseEntity<ApiResponse<UserResponse>> register(@RequestBody RegisterRequest request) {
         try {
             if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Tên đăng nhập không được để trống");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.badRequest().body(
+                    new ApiResponse<>(false, "Tên đăng nhập không được để trống", null)
+                );
             }
-            
             if (request.getPassword() == null || request.getPassword().length() < 6) {
-                response.put("success", false);
-                response.put("message", "Mật khẩu phải có ít nhất 6 ký tự");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.badRequest().body(
+                    new ApiResponse<>(false, "Mật khẩu phải có ít nhất 6 ký tự", null)
+                );
             }
-            
-            Account account = accountService.register(
+            UserResponse userData = accountService.register(
                 request.getUsername().trim(),
                 request.getPassword(),
                 request.getEmail(),
                 request.getPhone()
             );
-            
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("id", account.getId());
-            userData.put("username", account.getUsername());
-            userData.put("email", account.getEmail());
-            userData.put("phone", account.getPhone());
-            userData.put("coin", account.getCoin());
-            userData.put("createTime", account.getCreateTime());
-            
-            response.put("success", true);
-            response.put("message", "Đăng ký thành công");
-            response.put("user", userData);
-            
-            return ResponseEntity.ok(response);
-            
+            return ResponseEntity.ok(
+                new ApiResponse<>(true, "Đăng ký thành công", userData)
+            );
         } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(
+                new ApiResponse<>(false, e.getMessage(), null)
+            );
         }
     }
     
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest request) {
-        Map<String, Object> response = new HashMap<>();
-        
+    public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody LoginRequest request) {
         try {
             if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Tên đăng nhập không được để trống");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.badRequest().body(
+                    new ApiResponse<>(false, "Tên đăng nhập không được để trống", null)
+                );
             }
-            
             if (request.getPassword() == null || request.getPassword().isEmpty()) {
-                response.put("success", false);
-                response.put("message", "Mật khẩu không được để trống");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.badRequest().body(
+                    new ApiResponse<>(false, "Mật khẩu không được để trống", null)
+                );
             }
-            
-            Account account = accountService.login(request.getUsername().trim(), request.getPassword());
-            
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("id", account.getId());
-            userData.put("username", account.getUsername());
-            userData.put("email", account.getEmail());
-            userData.put("phone", account.getPhone());
-            userData.put("coin", account.getCoin());
-            userData.put("createTime", account.getCreateTime());
-            userData.put("status", account.getStatus());
-            userData.put("lock", account.getLock());
-            
-            response.put("success", true);
-            response.put("message", "Đăng nhập thành công");
-            response.put("user", userData);
-            
-            return ResponseEntity.ok(response);
-            
+            UserResponse userData = accountService.login(request.getUsername().trim(), request.getPassword());
+            return ResponseEntity.ok(
+                new ApiResponse<>(true, "Đăng nhập thành công", userData)
+            );
         } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(
+                new ApiResponse<>(false, e.getMessage(), null)
+            );
         }
     }
     
     @PostMapping("/change-password")
-    public ResponseEntity<Map<String, Object>> changePassword(@RequestBody ChangePasswordRequest request) {
-        Map<String, Object> response = new HashMap<>();
-        
+    public ResponseEntity<ApiResponse<Void>> changePassword(@RequestBody ChangePasswordRequest request) {
         try {
             accountService.changePassword(request.getAccountId(), request.getOldPassword(), request.getNewPassword());
-            
-            response.put("success", true);
-            response.put("message", "Đổi mật khẩu thành công");
-            
-            return ResponseEntity.ok(response);
-            
+            return ResponseEntity.ok(
+                new ApiResponse<>(true, "Đổi mật khẩu thành công", null)
+            );
         } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(
+                new ApiResponse<>(false, e.getMessage(), null)
+            );
         }
     }
     
     @GetMapping("/account/{id}")
-    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable Integer id) {
-        Map<String, Object> response = new HashMap<>();
-        
+    public ResponseEntity<ApiResponse<UserResponse>> getAccount(@PathVariable Integer id) {
         try {
             Account account = accountService.findById(id).orElse(null);
-            
             if (account == null) {
-                response.put("success", false);
-                response.put("message", "Tài khoản không tồn tại");
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(404).body(
+                    new ApiResponse<>(false, "Tài khoản không tồn tại", null)
+                );
             }
-            
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("id", account.getId());
-            userData.put("username", account.getUsername());
-            userData.put("email", account.getEmail());
-            userData.put("phone", account.getPhone());
-            userData.put("coin", account.getCoin());
-            userData.put("createTime", account.getCreateTime());
-            userData.put("status", account.getStatus());
-            userData.put("lock", account.getLock());
-            
-            response.put("success", true);
-            response.put("user", userData);
-            
-            return ResponseEntity.ok(response);
-            
+            UserResponse userData = new UserResponse(
+                account.getId(),
+                account.getUsername(),
+                account.getEmail(),
+                account.getPhone(),
+                account.getCoin(),
+                account.getCreateTime(),
+                account.getStatus(),
+                account.getLock()
+            );
+            return ResponseEntity.ok(
+                new ApiResponse<>(true, null, userData)
+            );
         } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(
+                new ApiResponse<>(false, e.getMessage(), null)
+            );
         }
     }
     

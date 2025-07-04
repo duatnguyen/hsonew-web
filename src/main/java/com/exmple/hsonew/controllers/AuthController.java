@@ -1,5 +1,8 @@
 package com.exmple.hsonew.controllers;
 
+import com.exmple.hsonew.dtos.request.ChangePasswordRequest;
+import com.exmple.hsonew.dtos.request.LoginRequest;
+import com.exmple.hsonew.dtos.request.RegisterRequest;
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,42 +161,4 @@ public class AuthController {
         }
     }
     
-    public static class LoginRequest {
-        private String username;
-        private String password;
-        
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
-    }
-    
-    public static class RegisterRequest {
-        private String username;
-        private String password;
-        private String email;
-        private String phone;
-        
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-        public String getPhone() { return phone; }
-        public void setPhone(String phone) { this.phone = phone; }
-    }
-    
-    public static class ChangePasswordRequest {
-        private Integer accountId;
-        private String oldPassword;
-        private String newPassword;
-        
-        public Integer getAccountId() { return accountId; }
-        public void setAccountId(Integer accountId) { this.accountId = accountId; }
-        public String getOldPassword() { return oldPassword; }
-        public void setOldPassword(String oldPassword) { this.oldPassword = oldPassword; }
-        public String getNewPassword() { return newPassword; }
-        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
-    }
-} 
+}

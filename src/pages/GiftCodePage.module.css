@@ -3,9 +3,10 @@
     max-width: auto;
     margin: 0 auto;
     border-radius: 20px;
-    /* background-color: #0F0F1A; */
-    /* border: 1px solid #a3a3a3; */
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
 }
 
 .pageHeader {
@@ -27,7 +28,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #1a5d1a;
+    color: #DAA520;
     font-size: 2rem;
     margin: 0;
 }
@@ -58,7 +59,7 @@
 }
 
 .filterButton.active {
-    background: #1a5d1a;
+    background: #DAA520;
     color: white;
 }
 
@@ -97,7 +98,7 @@
 }
 
 .cardHeader h2 {
-    color: #1a5d1a;
+    color: #DAA520;
     font-size: 1.2rem;
     margin: 0;
     flex: 1;
@@ -107,8 +108,8 @@
     font-size: 0.8rem;
     padding: 0.3rem 0.6rem;
     border-radius: 20px;
-    background: #e8f5e9;
-    color: #1a5d1a;
+    background: #fff8e1;
+    color: #DAA520;
     white-space: nowrap;
 }
 
@@ -149,8 +150,8 @@
 }
 
 .copyButton:hover {
-    color: #1a5d1a;
-    background: rgba(26, 93, 26, 0.1);
+    color: #DAA520;
+    background: rgba(218, 165, 32, 0.1);
 }
 
 .rewardsList {

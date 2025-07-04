@@ -11,41 +11,35 @@ const LoginModal: React.FC = () => {
     password: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Simulate login - in real app, this would make an API call
-    login(formData.username, 0);
-    
-    // Clear form
-    setFormData({ username: '', password: '' });
-    
-    // Close modal using Bootstrap's hide method
+  const closeModal = () => {
     const modalElement = document.getElementById('login-modal');
     if (modalElement) {
       const bsModal = new (window as any).bootstrap.Modal(modalElement);
       bsModal.hide();
-      
-      // Remove modal backdrop
       const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.remove();
-      }
-      
-      // Remove modal-open class and inline styles from body
+      if (backdrop) backdrop.remove();
       document.body.classList.remove('modal-open');
       document.body.style.removeProperty('padding-right');
       document.body.style.removeProperty('overflow');
     }
   };
 
-  // Cleanup function to ensure modal elements are removed when component unmounts
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await login(formData.username, 0);
+      setFormData({ username: '', password: '' });
+      closeModal();
+    } catch (error) {
+      console.error('Login failed:', error);
+      // Có thể thêm xử lý hiển thị lỗi ở đây
+    }
+  };
+
   useEffect(() => {
     return () => {
       const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.remove();
-      }
+      if (backdrop) backdrop.remove();
       document.body.classList.remove('modal-open');
       document.body.style.removeProperty('padding-right');
       document.body.style.removeProperty('overflow');
@@ -60,61 +54,57 @@ const LoginModal: React.FC = () => {
   return (
     <div className="modal fade" id="login-modal" tabIndex={-1} aria-labelledby="loginModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-body">
+        <div className={`modal-content ${styles.modalWrapper}`}>
+          <div className="modal-body p-0">
             <div className={styles.modalHeader}>
-              <a href="/">
-                <img src={logo} alt="Logo" className={styles.modalLogo} />
-              </a>
+              <img src={logo} alt="Logo" className={styles.modalLogo} />
+              <h4 className={styles.modalTitle}>Đăng Nhập</h4>
             </div>
+            
             <form onSubmit={handleSubmit} className={styles.authForm}>
-              <div className="mb-3">
-                <label className="form-label">Tên đăng nhập</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaUser />
-                  </span>
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.username ? styles.hasValue : ''}`}>
+                  <FaUser className={styles.inputIcon} />
                   <input
                     type="text"
                     name="username"
-                    className="form-control"
-                    placeholder="Nhập tên đăng nhập"
+                    className={`${styles.formInput} ${formData.username ? styles.hasValue : ''}`}
+                    placeholder="Tên đăng nhập"
                     value={formData.username}
                     onChange={handleChange}
                     required
                   />
                 </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Mật khẩu</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaLock />
-                  </span>
+
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.password ? styles.hasValue : ''}`}>
+                  <FaLock className={styles.inputIcon} />
                   <input
                     type="password"
                     name="password"
-                    className="form-control"
-                    placeholder="Nhập mật khẩu"
+                    className={`${styles.formInput} ${formData.password ? styles.hasValue : ''}`}
+                    placeholder="Mật khẩu"
                     value={formData.password}
                     onChange={handleChange}
                     required
                   />
                 </div>
               </div>
+
               <div className={styles.modalActions}>
-                <button type="submit" className={styles.submitButton} title="Đăng nhập">
-                  <FaSignInAlt />
+                <button type="submit" className={styles.submitButton}>
+                  <FaSignInAlt /> <span>Đăng nhập</span>
                 </button>
                 <button 
                   type="button" 
                   className={styles.cancelButton} 
                   data-bs-dismiss="modal"
-                  title="Hủy bỏ"
                 >
-                  <FaTimes />
+                  <FaTimes /> <span>Hủy</span>
                 </button>
               </div>
+
               <div className={styles.modalLinks}>
                 <p>
                   Bạn chưa có tài khoản?{' '}
@@ -134,7 +124,7 @@ const LoginModal: React.FC = () => {
                     data-bs-target="#reset-password-modal"
                     data-bs-dismiss="modal"
                   >
-                    Quên mật khẩu
+                    Quên mật khẩu?
                   </span>
                 </p>
               </div>

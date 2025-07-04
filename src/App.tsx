@@ -28,8 +28,8 @@ const App: React.FC = () => {
               <Header />
               <Navigation />
               <Routes>
-                <Route path="/" element={<Navigate to="/trangchu" replace />} />
-                <Route path="/trangchu" element={<HomePage />} />
+                <Route path="/" element={<Navigate to="/home" replace />} />
+                <Route path="/home" element={<HomePage />} />
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/download" element={<DownloadPage />} />
                 <Route path="/post/:id" element={<PostDetail />} />

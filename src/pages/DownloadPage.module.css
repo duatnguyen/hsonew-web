@@ -1,10 +1,11 @@
 .downloadPage {
   min-height: 100vh;
   padding: 2rem 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e6fff9 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .downloadPage::before {
@@ -22,7 +23,7 @@
 
 .pageTitle {
   text-align: center;
-  color: #004d40;
+  color: #DAA520;
   font-size: 2.5rem;
   margin-bottom: 2rem;
   text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
@@ -38,7 +39,7 @@
   transform: translateX(-50%);
   width: 100px;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #004d40, transparent);
+  background: linear-gradient(90deg, transparent, #DAA520, transparent);
 }
 
 @media (max-width: 768px) {

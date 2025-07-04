@@ -84,11 +84,6 @@ const Header: React.FC = () => {
                 </div>
                 <div className={styles.userDetails}>
                   <span className={styles.username}>{user.username}</span>
-                  <div className={styles.userStats}>
-                    <span className={styles.gemCount}>
-                      <FaGem /> 1000
-                    </span>
-                  </div>
                 </div>
               </div>
 

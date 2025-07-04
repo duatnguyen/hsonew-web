@@ -11,10 +11,35 @@ const RegisterModal: React.FC = () => {
     confirmPassword: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const closeModal = () => {
+    const modalElement = document.getElementById('register-modal');
+    if (modalElement) {
+      const bsModal = new (window as any).bootstrap.Modal(modalElement);
+      bsModal.hide();
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+      document.body.classList.remove('modal-open');
+      document.body.style.removeProperty('padding-right');
+      document.body.style.removeProperty('overflow');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log('Register:', formData);
+    try {
+      // Thực hiện đăng ký ở đây
+      console.log('Register:', formData);
+      setFormData({
+        username: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+      });
+      closeModal();
+    } catch (error) {
+      console.error('Registration failed:', error);
+      // Có thể thêm xử lý hiển thị lỗi ở đây
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,75 +50,66 @@ const RegisterModal: React.FC = () => {
   return (
     <div className="modal fade" id="register-modal" tabIndex={-1} aria-labelledby="registerModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-body">
+        <div className={`modal-content ${styles.modalWrapper}`}>
+          <div className="modal-body p-0">
             <div className={styles.modalHeader}>
-              <a href="/">
-                <img src={logo} alt="Logo" className={styles.modalLogo} />
-              </a>
+              <img src={logo} alt="Logo" className={styles.modalLogo} />
+              <h4 className={styles.modalTitle}>Đăng Ký</h4>
             </div>
+            
             <form onSubmit={handleSubmit} className={styles.authForm}>
-              <div className="mb-3">
-                <label className="form-label">Tên đăng nhập</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaUser />
-                  </span>
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.username ? styles.hasValue : ''}`}>
+                  <FaUser className={styles.inputIcon} />
                   <input
                     type="text"
                     name="username"
-                    className="form-control"
-                    placeholder="Nhập tên đăng nhập"
+                    className={`${styles.formInput} ${formData.username ? styles.hasValue : ''}`}
+                    placeholder="Tên đăng nhập"
                     value={formData.username}
                     onChange={handleChange}
                     required
                   />
                 </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Số điện thoại</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaPhone />
-                  </span>
+
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.phone ? styles.hasValue : ''}`}>
+                  <FaPhone className={styles.inputIcon} />
                   <input
                     type="text"
                     name="phone"
-                    className="form-control"
-                    placeholder="Nhập số điện thoại"
+                    className={`${styles.formInput} ${formData.phone ? styles.hasValue : ''}`}
+                    placeholder="Số điện thoại"
                     value={formData.phone}
                     onChange={handleChange}
                     required
                   />
                 </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Mật khẩu</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaLock />
-                  </span>
+
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.password ? styles.hasValue : ''}`}>
+                  <FaLock className={styles.inputIcon} />
                   <input
                     type="password"
                     name="password"
-                    className="form-control"
-                    placeholder="Nhập mật khẩu"
+                    className={`${styles.formInput} ${formData.password ? styles.hasValue : ''}`}
+                    placeholder="Mật khẩu"
                     value={formData.password}
                     onChange={handleChange}
                     required
                   />
                 </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Nhập lại mật khẩu</label>
-                <div className="input-group">
-                  <span className="input-group-text">
-                    <FaLock />
-                  </span>
+
+              <div className={styles.formGroup}>
+                <div className={`${styles.inputWrapper} ${formData.confirmPassword ? styles.hasValue : ''}`}>
+                  <FaLock className={styles.inputIcon} />
                   <input
                     type="password"
                     name="confirmPassword"
-                    className="form-control"
+                    className={`${styles.formInput} ${formData.confirmPassword ? styles.hasValue : ''}`}
                     placeholder="Nhập lại mật khẩu"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -101,19 +117,20 @@ const RegisterModal: React.FC = () => {
                   />
                 </div>
               </div>
+
               <div className={styles.modalActions}>
-                <button type="submit" className={styles.submitButton} title="Đăng ký">
-                  <FaUserPlus />
+                <button type="submit" className={styles.submitButton}>
+                  <FaUserPlus /> <span>Đăng ký</span>
                 </button>
                 <button 
                   type="button" 
                   className={styles.cancelButton} 
                   data-bs-dismiss="modal"
-                  title="Hủy bỏ"
                 >
-                  <FaTimes />
+                  <FaTimes /> <span>Hủy</span>
                 </button>
               </div>
+
               <div className={styles.modalLinks}>
                 <p>
                   Bạn đã có tài khoản?{' '}
@@ -133,7 +150,7 @@ const RegisterModal: React.FC = () => {
                     data-bs-target="#reset-password-modal"
                     data-bs-dismiss="modal"
                   >
-                    Quên mật khẩu
+                    Quên mật khẩu?
                   </span>
                 </p>
               </div>

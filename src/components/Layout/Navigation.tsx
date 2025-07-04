@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
   const menuItems: MenuItem[] = [
     { 
       label: 'Trang Chủ',
-      to: '/trangchu',
+      to: '/home',
       icon: '🏠'
     },
     { 

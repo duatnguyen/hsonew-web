@@ -26,7 +26,7 @@ const RankingPage: React.FC = () => {
     { top: 10, name: 'DANHLEE', level: 139 },
   ];
 
-  const getTopColor = (top: number): string => {
+  const getTopClass = (top: number): string => {
     switch (top) {
       case 1:
         return styles.topOne;
@@ -37,6 +37,47 @@ const RankingPage: React.FC = () => {
       default:
         return '';
     }
+  };
+
+  const getTabIcon = (tab: RankingTab): string => {
+    switch (tab) {
+      case 'cao-thu':
+        return '⚔️';
+      case 'tai-phu':
+        return '💰';
+      case 'nap-su-kien':
+        return '🎁';
+      default:
+        return '📊';
+    }
+  };
+
+  const renderRankBadge = (top: number) => {
+    let crown = '';
+    switch (top) {
+      case 1:
+        crown = '👑';
+        break;
+      case 2:
+        crown = '🥈';
+        break;
+      case 3:
+        crown = '🥉';
+        break;
+    }
+
+    return (
+      <div className={styles.rankNumber}>
+        {top <= 3 ? (
+          <>
+            <span className={styles.crown}>{crown}</span>
+            <div className={styles.rankBadge}>#{top}</div>
+          </>
+        ) : (
+          <div className={styles.rankBadge}>#{top}</div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -56,19 +97,19 @@ const RankingPage: React.FC = () => {
                 className={`${styles.tab} ${activeTab === 'cao-thu' ? styles.active : ''}`}
                 onClick={() => setActiveTab('cao-thu')}
               >
-                TOP Cao Thủ
+                <span>{getTabIcon('cao-thu')} TOP Cao Thủ</span>
               </button>
               <button 
                 className={`${styles.tab} ${activeTab === 'tai-phu' ? styles.active : ''}`}
                 onClick={() => setActiveTab('tai-phu')}
               >
-                TOP Tài Phú
+                <span>{getTabIcon('tai-phu')} TOP Tài Phú</span>
               </button>
               <button 
                 className={`${styles.tab} ${activeTab === 'nap-su-kien' ? styles.active : ''}`}
                 onClick={() => setActiveTab('nap-su-kien')}
               >
-                TOP Nạp Sự Kiện
+                <span>{getTabIcon('nap-su-kien')} TOP Nạp Sự Kiện</span>
               </button>
             </div>
 
@@ -83,12 +124,12 @@ const RankingPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {rankingData.map((item) => (
-                    <tr key={item.top}>
-                      <td className={`${styles.rankNumber} ${getTopColor(item.top)}`}>
-                        {item.top}
+                    <tr key={item.top} className={getTopClass(item.top)}>
+                      <td>
+                        {renderRankBadge(item.top)}
                       </td>
-                      <td className={getTopColor(item.top)}>{item.name}</td>
-                      <td className={getTopColor(item.top)}>{item.level}</td>
+                      <td>{item.name}</td>
+                      <td>Lv.{item.level}</td>
                     </tr>
                   ))}
                 </tbody>

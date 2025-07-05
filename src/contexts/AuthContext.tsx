@@ -1,19 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface User {
+  id: number;
   username: string;
-  coin: number;
   email: string;
   phone: string;
-  createdAt: string;
-  password: string;
+  coin: number;
+  createTime: string;
+  status: number;
+  lock: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, coin: number) => void;
+  login: (userData: User) => void;
   logout: () => void;
-  updatePassword: (newPassword: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,30 +22,16 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = (username: string, coin: number) => {
-    // Simulate user data - in real app this would come from API
-    setUser({
-      username,
-      coin,
-      email: 'user@example.com',
-      phone: '0123456789',
-      createdAt: new Date().toISOString(),
-      password: 'defaultpassword'
-    });
+  const login = (userData: User) => {
+    setUser(userData);
   };
 
   const logout = () => {
     setUser(null);
   };
 
-  const updatePassword = (newPassword: string) => {
-    if (user) {
-      setUser({ ...user, password: newPassword });
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, updatePassword }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

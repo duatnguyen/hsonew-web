@@ -3,6 +3,7 @@ import styles from './AuthModals.module.css';
 import logo from '../../assets/images/logo.png';
 import { FaSignInAlt, FaTimes, FaUser, FaLock } from 'react-icons/fa';
 import { useAuth } from '../../contexts/AuthContext';
+import axios from 'axios';
 
 const LoginModal: React.FC = () => {
   const { login } = useAuth();
@@ -10,6 +11,7 @@ const LoginModal: React.FC = () => {
     username: '',
     password: '',
   });
+  const [error, setError] = useState<string>('');
 
   const closeModal = () => {
     const modalElement = document.getElementById('login-modal');
@@ -26,13 +28,24 @@ const LoginModal: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+
     try {
-      await login(formData.username, 0);
-      setFormData({ username: '', password: '' });
-      closeModal();
-    } catch (error) {
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
+        username: formData.username.trim(),
+        password: formData.password
+      });
+
+      if (response.data.success) {
+        await login(response.data.user);
+        setFormData({ username: '', password: '' });
+        closeModal();
+      } else {
+        setError(response.data.message || 'Đăng nhập thất bại');
+      }
+    } catch (error: any) {
       console.error('Login failed:', error);
-      // Có thể thêm xử lý hiển thị lỗi ở đây
+      setError(error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
     }
   };
 
@@ -49,6 +62,7 @@ const LoginModal: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    setError(''); // Clear error when user types
   };
 
   return (
@@ -62,6 +76,8 @@ const LoginModal: React.FC = () => {
             </div>
             
             <form onSubmit={handleSubmit} className={styles.authForm}>
+              {error && <div className={styles.errorMessage}>{error}</div>}
+              
               <div className={styles.formGroup}>
                 <div className={`${styles.inputWrapper} ${formData.username ? styles.hasValue : ''}`}>
                   <FaUser className={styles.inputIcon} />

@@ -2,6 +2,7 @@ package com.exmple.hsonew.services;
 
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.repositories.AccountRepository;
+import com.exmple.hsonew.dtos.response.AccountResponse;
 import com.exmple.hsonew.dtos.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class AccountService {
     /**
      * Đăng ký tài khoản mới
      */
-    public UserResponse register(String username, String password, String email, String phone) throws Exception {
+    public AccountResponse register(String username, String password, String email, String phone) throws Exception {
         // Kiểm tra username đã tồn tại
         if (accountRepository.existsByUsername(username)) {
             throw new Exception("Tên đăng nhập đã tồn tại");
@@ -46,13 +47,13 @@ public class AccountService {
         account.setIp("127.0.0.1"); // Set default IP
         account.setCreateTime(LocalDateTime.now());
         Account saved = accountRepository.save(account);
-        return toUserResponse(saved);
+        return new AccountResponse(saved);
     }
     
     /**
      * Đăng nhập
      */
-    public UserResponse login(String loginId, String password) throws Exception {
+    public AccountResponse login(String loginId, String password) throws Exception {
         // Tìm account theo username hoặc email
         Optional<Account> accountOpt = accountRepository.findByUsernameOrEmailAndActive(loginId);
         
@@ -70,7 +71,7 @@ public class AccountService {
         // Cập nhật last IP có thể thêm sau
         accountRepository.save(account);
         
-        return toUserResponse(account);
+        return new AccountResponse(account);
     }
     
     /**
@@ -98,7 +99,7 @@ public class AccountService {
     /**
      * Cập nhật thông tin tài khoản
      */
-    public UserResponse updateAccount(Integer accountId, String email, String phone) throws Exception {
+    public AccountResponse updateAccount(Integer accountId, String email, String phone) throws Exception {
         Optional<Account> accountOpt = accountRepository.findById(accountId);
         
         if (!accountOpt.isPresent()) {
@@ -121,7 +122,7 @@ public class AccountService {
         }
         
         Account saved = accountRepository.save(account);
-        return toUserResponse(saved);
+        return new AccountResponse(saved);
     }
     
     /**
@@ -153,19 +154,5 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    /**
-     * Chuyển đổi Account sang UserResponse
-     */
-    private UserResponse toUserResponse(Account account) {
-        return new UserResponse(
-            account.getId(),
-            account.getUsername(),
-            account.getEmail(),
-            account.getPhone(),
-            account.getCoin(),
-            account.getCreateTime(),
-            account.getStatus(),
-            account.getLock()
-        );
-    }
+    
 } 

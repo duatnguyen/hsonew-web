@@ -6,7 +6,7 @@ import com.exmple.hsonew.dtos.request.RegisterRequest;
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.services.AccountService;
 import com.exmple.hsonew.dtos.response.ApiResponse;
-import com.exmple.hsonew.dtos.response.UserResponse;
+import com.exmple.hsonew.dtos.response.AccountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class AuthController {
     private AccountService accountService;
     
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserResponse>> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<AccountResponse>> register(@RequestBody RegisterRequest request) {
         try {
             if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(
@@ -33,7 +33,7 @@ public class AuthController {
                     new ApiResponse<>(false, "Mật khẩu phải có ít nhất 6 ký tự", null)
                 );
             }
-            UserResponse userData = accountService.register(
+            AccountResponse userData = accountService.register(
                 request.getUsername().trim(),
                 request.getPassword(),
                 request.getEmail(),
@@ -50,7 +50,7 @@ public class AuthController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<AccountResponse>> login(@RequestBody LoginRequest request) {
         try {
             if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(
@@ -62,7 +62,7 @@ public class AuthController {
                     new ApiResponse<>(false, "Mật khẩu không được để trống", null)
                 );
             }
-            UserResponse userData = accountService.login(request.getUsername().trim(), request.getPassword());
+            AccountResponse userData = accountService.login(request.getUsername().trim(), request.getPassword());
             return ResponseEntity.ok(
                 new ApiResponse<>(true, "Đăng nhập thành công", userData)
             );
@@ -88,7 +88,7 @@ public class AuthController {
     }
     
     @GetMapping("/account/{id}")
-    public ResponseEntity<ApiResponse<UserResponse>> getAccount(@PathVariable Integer id) {
+    public ResponseEntity<ApiResponse<AccountResponse>> getAccount(@PathVariable Integer id) {
         try {
             Account account = accountService.findById(id).orElse(null);
             if (account == null) {
@@ -96,16 +96,7 @@ public class AuthController {
                     new ApiResponse<>(false, "Tài khoản không tồn tại", null)
                 );
             }
-            UserResponse userData = new UserResponse(
-                account.getId(),
-                account.getUsername(),
-                account.getEmail(),
-                account.getPhone(),
-                account.getCoin(),
-                account.getCreateTime(),
-                account.getStatus(),
-                account.getLock()
-            );
+            AccountResponse userData = new AccountResponse(account);
             return ResponseEntity.ok(
                 new ApiResponse<>(true, null, userData)
             );

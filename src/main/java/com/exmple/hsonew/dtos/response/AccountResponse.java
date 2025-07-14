@@ -12,22 +12,32 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse extends BaseResponse {
-    private UserData user;
+public class AccountResponse extends BaseResponse {
+    private AccountData account;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UserData {
+    public static class AccountData {
         private Integer id;
         private String username;
         private String password;
-        private List<String> listChar;
         private String email;
         private String phone;
         private Integer coin;
-        private LocalDateTime createTime;
+        private Integer acAdmin;
+        private List<String> charNames;
         private Integer status;
         private Integer lock;
+        private String ip;
+        private String lastIp;
+        private Integer tiennap;
+        private String pass2;
+        private Integer naptuan;
+        private Integer tongnap;
+        private String otp;
+        private Integer expirationOtp;
+        private Integer token;
+        private LocalDateTime createTime;
     }
 }

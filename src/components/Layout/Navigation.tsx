@@ -11,47 +11,42 @@ interface MenuItem {
 
 const Navigation: React.FC = () => {
   const menuItems: MenuItem[] = [
-    { 
+    {
       label: 'Trang Chủ',
       to: '/home',
       icon: '🏠'
     },
-    { 
+    {
       label: 'Tin Tức',
       to: '/news',
       icon: '📰',
       badge: 'New'
     },
-    { 
+    {
       label: 'Tải Game',
       to: '/download',
       icon: '⬇️'
     },
-    { 
+    {
       label: 'Giftcode',
       to: '/giftcode',
       icon: '🎁',
       badge: 'Hot'
     },
-    { 
+    {
       label: 'Nạp Ngọc',
       to: '/recharge',
       icon: '💎'
     },
-    { 
+    {
       label: 'Xếp Hạng',
       to: '/ranking',
       icon: '🏆'
     },
-    { 
+    {
       label: 'Cộng Đồng',
       to: '/community',
       icon: '👥'
-    },
-    { 
-      label: 'Hỗ Trợ',
-      to: '/support',
-      icon: '❓'
     }
   ];
 
@@ -62,7 +57,7 @@ const Navigation: React.FC = () => {
           <div key={index} className={styles.menuItem}>
             <NavLink
               to={item.to}
-              className={({ isActive }) => 
+              className={({ isActive }) =>
                 `${styles.menuLink} ${isActive ? styles.active : ''}`
               }
             >

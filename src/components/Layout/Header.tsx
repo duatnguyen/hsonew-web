@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '../../assets/images/logo.png';
 import { useAuth } from '../../contexts/AuthContext';
-import { 
-  FaSignInAlt, 
-  FaUserPlus, 
-  FaDownload, 
-  FaUser, 
-  FaSignOutAlt, 
+import {
+  FaSignInAlt,
+  FaUserPlus,
+  FaUser,
+  FaSignOutAlt,
   FaUserCog,
-  FaGem,
-  FaBell
+  FaBell,
 } from 'react-icons/fa';
+import { encodeId } from '../../utils/encodeId';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const isAccountPage = location.pathname === '/account';
+  const navigate = useNavigate();
+  const isAccountPage = location.pathname.startsWith('/account/');
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
@@ -41,6 +41,11 @@ const Header: React.FC = () => {
     }
   ];
 
+  const handleLogout = () => {
+    logout();
+    navigate('/home');
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
@@ -58,7 +63,7 @@ const Header: React.FC = () => {
           {user ? (
             <div className={styles.userSection}>
               <div className={styles.notificationArea}>
-                <button 
+                <button
                   className={styles.notificationButton}
                   onClick={() => setShowNotifications(!showNotifications)}
                 >
@@ -89,8 +94,8 @@ const Header: React.FC = () => {
 
               <div className={styles.userActions}>
                 {!isAccountPage && (
-                  <Link 
-                    to="/account" 
+                  <Link
+                    to={`/account/${encodeId(user.id)}`}
                     className={styles.actionButton}
                     title="Quản lý tài khoản"
                   >
@@ -99,7 +104,7 @@ const Header: React.FC = () => {
                 )}
                 <button
                   className={styles.actionButton}
-                  onClick={logout}
+                  onClick={handleLogout}
                   title="Đăng xuất"
                 >
                   <FaSignOutAlt />
@@ -108,18 +113,16 @@ const Header: React.FC = () => {
             </div>
           ) : (
             <div className={styles.authSection}>
-              <button 
+              <button
                 className={`${styles.authButton} ${styles.loginButton}`}
-                data-bs-toggle="modal" 
-                data-bs-target="#login-modal"
+                onClick={() => window.openLoginModal && window.openLoginModal()}
               >
                 <FaSignInAlt />
                 <span>Đăng nhập</span>
               </button>
-              <button 
+              <button
                 className={`${styles.authButton} ${styles.registerButton}`}
-                data-bs-toggle="modal" 
-                data-bs-target="#register-modal"
+                onClick={() => window.openRegisterModal && window.openRegisterModal()}
               >
                 <FaUserPlus />
                 <span>Đăng ký</span>
@@ -132,4 +135,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header; 
+export default Header;

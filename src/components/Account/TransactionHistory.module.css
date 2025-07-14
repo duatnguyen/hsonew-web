@@ -1,46 +1,62 @@
 .container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 
-    0 4px 6px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1.5rem;
-  flex: 0.7;
-  min-width: 300px;
+  width: 100%;
+  flex: 1 1 350px;
+  min-width: 0;
+  max-width: unset;
+  margin: 0;
+  background: linear-gradient(135deg, #e0f7fa 0%, #f8fafc 100%);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  min-height: auto;
 }
 
 .title {
-  color: #333;
+  color: #2196f3;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .tableContainer {
+  width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px 0 rgba(33,150,243,0.07);
+  padding: 0.5rem 0.2rem;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+  font-size: 1rem;
+  background: transparent;
 }
 
 .table th,
 .table td {
-  padding: 1rem;
+  padding: 1rem 0.7rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1.5px solid #e0e0e0;
+  vertical-align: middle;
+  background: transparent;
 }
 
 .table th {
-  background: rgba(0, 0, 0, 0.05);
-  font-weight: 600;
-  color: #444;
+  /* background: linear-gradient(90deg, #e0fff6 60%, #fff 100%); */
+  font-weight: 700;
+  color: #00bfae;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.8px;
 }
 
 .table tr:last-child td {
@@ -48,25 +64,28 @@
 }
 
 .table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f8fffc;
 }
 
 .amount {
   color: #2ecc71;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .gems {
   color: #e67e22;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .type {
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #e0fff6;
+  color: #00bfae;
+  letter-spacing: 0.5px;
 }
 
 .card {
@@ -84,18 +103,45 @@
   color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .container {
-    padding: 1rem;
-  }
-
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0;
+    padding: 1.2rem 0.3rem 1.2rem 0.3rem;
+    border-radius: 1.2rem;
+  } 
   .table th,
   .table td {
-    padding: 0.75rem;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.93rem;
   }
+  .title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+}
 
-  .type {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0.7rem 0.1rem 0.7rem 0.1rem;
+    border-radius: 0.7rem;
   }
-} 
+  .table th,
+  .table td {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.85rem;
+  }
+  .title {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .tableContainer {
+    border-radius: 0.7rem;
+  }
+}

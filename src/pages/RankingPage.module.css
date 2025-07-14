@@ -209,9 +209,11 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: white;
+  color: #B8860B;
   font-size: 0.9rem;
+  background: #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
 }
 
 .topOne td {
@@ -225,6 +227,7 @@
 .topOne .rankBadge {
   background: #FFD700;
   border: 2px solid #FFA500;
+  color: #fff;
 }
 
 .topTwo td {
@@ -238,6 +241,7 @@
 .topTwo .rankBadge {
   background: #C0C0C0;
   border: 2px solid #A9A9A9;
+  color: #222;
 }
 
 .topThree td {
@@ -251,6 +255,7 @@
 .topThree .rankBadge {
   background: #CD7F32;
   border: 2px solid #B87333;
+  color: #fff;
 }
 
 .crown {
@@ -317,4 +322,23 @@
     height: 24px;
     font-size: 0.75rem;
   }
-} 
+}
+
+/* Đặt các dòng top hover ở cuối và thêm !important để không bị ghi đè */
+.topOne:hover td {
+  background: linear-gradient(45deg, #FFC300, #FF9800) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.25);
+}
+
+.topTwo:hover td {
+  background: linear-gradient(45deg, #D3D3D3, #A9A9A9) !important;
+  color: #222 !important;
+  box-shadow: 0 6px 18px rgba(169, 169, 169, 0.25);
+}
+
+.topThree:hover td {
+  background: linear-gradient(45deg, #B87333, #8B5C2A) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(184, 115, 51, 0.25);
+}

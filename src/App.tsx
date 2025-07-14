@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css';
 import Header from './components/Layout/Header';
 import Navigation from './components/Layout/Navigation';
@@ -17,6 +18,7 @@ import RankingPage from './pages/RankingPage';
 import RechargePage from './pages/RechargePage';
 import GiftCodePage from './pages/GiftCodePage';
 
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -31,6 +33,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Navigate to="/home" replace />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/account" element={<AccountPage />} />
+                <Route path="/account/:id" element={<AccountPage />} />
                 <Route path="/download" element={<DownloadPage />} />
                 <Route path="/post/:id" element={<PostDetail />} />
                 <Route path="/ranking" element={<RankingPage />} />

@@ -2,6 +2,12 @@ import React from 'react';
 import styles from './TransactionHistory.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
+import type { User } from '../../contexts/AuthContext';
+
+interface TransactionHistoryProps {
+  user?: User | null;
+}
+
 interface Transaction {
   id: number;
   transactionCode: string;
@@ -12,8 +18,9 @@ interface Transaction {
   date: string;
 }
 
-const TransactionHistory: React.FC = () => {
-  const { user } = useAuth();
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ user: userProp }) => {
+  const context = useAuth();
+  const user = userProp !== undefined ? userProp : context.user;
 
   if (!user) {
     return null;
@@ -76,10 +83,10 @@ const TransactionHistory: React.FC = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Mã giao dịch</th>
+              <th>Mã GD</th>
               <th>Tên nhân vật</th>
               <th>Số tiền</th>
-              <th>Số ngọc nạp</th>
+              <th>Số ngọc</th>
               <th>Loại nạp</th>
               <th>Ngày nạp</th>
             </tr>

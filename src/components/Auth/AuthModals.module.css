@@ -1,11 +1,10 @@
 .modalWrapper {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  overflow: hidden;
 }
+
 
 .modalHeader {
   text-align: center;
@@ -166,4 +165,24 @@
   font-size: 0.9rem;
   text-align: center;
   border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.successMessage {
+  background-color: rgba(0, 200, 151, 0.12);
+  color: #00a36c;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  text-align: center;
+  border: 1px solid rgba(0, 200, 151, 0.18);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 8px rgba(0, 200, 151, 0.07);
+  animation: fadeInSuccess 0.5s;
+}
+
+@keyframes fadeInSuccess {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 } 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AccountManagement.module.css';
-import { useAuth } from '../../contexts/AuthContext';
-import { FaEye, FaEyeSlash, FaKey, FaSignOutAlt, FaCheck, FaTimes, FaEdit, FaUserCircle, FaRegCalendarAlt } from 'react-icons/fa';
+import { useAuth } from '../../../contexts/AuthContext';
+import { FaKey, FaSignOutAlt, FaCheck, FaTimes, FaEdit, FaUserCircle, FaRegCalendarAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { encodeId } from '../../utils/encodeId';
-import type { User as UserBase } from '../../contexts/AuthContext';
+import type { User as UserBase } from '../../../contexts/AuthContext';
 
 // Mở rộng interface User để có listChar
 interface User extends UserBase {
@@ -23,7 +23,7 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
   const navigate = useNavigate();
   const [userLocal, setUserLocal] = useState<User | null | undefined>(user);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -72,31 +72,32 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
     }
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/change-password', {
-        accountId: userLocal.id,
-        oldPassword,
-        newPassword
-      });
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Bạn cần đăng nhập để thực hiện thao tác này');
+        return;
+      }
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.post(
+        `${API_URL}/api/accounts/change-password`,
+        {
+          accountId: userLocal.id,
+          oldPassword,
+          newPassword
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
       if (res.data && res.data.success) {
         setIsChangingPassword(false);
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
         setError('');
-        // Load lại thông tin tài khoản và hiển thị lại trang
-        await fetchAndUpdateUser();
-        // Nếu sau khi fetch xong mà userLocal.password vẫn là mật khẩu cũ, cập nhật lại bằng newPassword
-        setUserLocal(prev => {
-          if (!prev) return prev;
-          if (prev.password !== newPassword) {
-            return { ...prev, password: newPassword };
-          }
-          return prev;
-        });
-        // Update localStorage
-        const updatedUser = { ...userLocal, password: newPassword };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        setSuccessMsg(res.data.message || 'Đổi mật khẩu thành công');
+        // Đổi mật khẩu thành công, logout và chuyển về trang đăng nhập
+        logout();
+        navigate('/home');
       } else {
         setError(res.data?.message || 'Đổi mật khẩu thất bại');
       }
@@ -109,7 +110,12 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
 
   const fetchAndUpdateUser = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/account/${userLocal.id}`);
+      const API_URL = import.meta.env.VITE_API_URL;
+      const token = localStorage.getItem('token');
+      const res = await axios.get(
+        `${API_URL}/api/account/${userLocal.id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       if (res.data && res.data.success && res.data.user) {
         // Đảm bảo id luôn được encode lại sau khi cập nhật
         const encodedUser = { ...res.data.user, id: encodeId(res.data.user.id) };
@@ -140,18 +146,20 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
       return;
     }
     try {
+      const token = localStorage.getItem('token');
       const payload = {
         id: userLocal.id,
-        username: userLocal.username,
-        password: userLocal.password,
         email: newEmail,
         phone: userLocal.phone,
-        coin: userLocal.coin,
-        createTime: userLocal.createTime,
-        status: userLocal.status,
-        lock: userLocal.lock
+        status: typeof userLocal.status === 'number' ? userLocal.status : 1,
+        lock: userLocal.lock ? 1 : 0
       };
-      const res = await axios.put(`http://localhost:8080/api/accounts/${userLocal.id}`, payload);
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.put(
+        `${API_URL}/api/accounts/${userLocal.id}`,
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       if (res.data && res.data.success) {
         setIsEditingEmail(false);
         setErrorEmail('');
@@ -185,10 +193,20 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
       return;
     }
     try {
-      const res = await axios.put(`http://localhost:8080/api/accounts/${userLocal.id}`, {
-        ...userLocal,
-        phone: newPhone
-      });
+      const token = localStorage.getItem('token');
+      const payload = {
+        id: userLocal.id,
+        phone: newPhone,
+        email: userLocal.email,
+        status: typeof userLocal.status === 'number' ? userLocal.status : 1,
+        lock: userLocal.lock ? 1 : 0
+      };
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.put(
+        `${API_URL}/api/accounts/${userLocal.id}`,
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       if (res.data && res.data.success) {
         setIsEditingPhone(false);
         setErrorPhone('');
@@ -203,9 +221,21 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/home');
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const API_URL = import.meta.env.VITE_API_URL;
+      await axios.post(
+        `${API_URL}/logout`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (err) {
+      console.error('Logout API error:', err);
+    } finally {
+      logout();
+      navigate('/home');
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -249,6 +279,7 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
     return [];
   };
 
+
   // Thêm avatar lớn và tên tài khoản nổi bật
   return (
     <div className={styles.cardWrap}>
@@ -283,13 +314,6 @@ const AccountManagement: React.FC<AccountManagementProps> = ({ user: userProp })
                 ? (userLocal.password ? userLocal.password : 'Chưa có thông tin')
                 : '••••••••'}
             </span>
-            <button
-              className={`${styles.iconButton} ${styles.showButton}`}
-              onClick={() => setShowPassword((prev) => !prev)}
-              title={showPassword ? 'Ẩn mật khẩu' : 'Hiển thị mật khẩu'}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
             <button
               className={`${styles.iconButton} ${styles.changeButton}`}
               onClick={handleChangePassword}

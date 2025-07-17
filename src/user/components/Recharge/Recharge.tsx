@@ -1,12 +1,22 @@
+// Sinh transactionId giống backend
+const generateTransactionId = (userId: string) => {
+    const prefix = userId.length >= 4 ? userId.substring(0, 4).toUpperCase() : userId.toUpperCase();
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const timestamp =
+        now.getFullYear().toString() +
+        pad(now.getMonth() + 1) +
+        pad(now.getDate()) +
+        pad(now.getHours()) +
+        pad(now.getMinutes()) +
+        pad(now.getSeconds());
+    const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+    return `${prefix}_${timestamp}_${random}`;
+};
 import React, { useState, useRef } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import styles from './Recharge.module.css';
 
-// Sinh addInfo: selectedChar + 4 số ngẫu nhiên
-const generateAddInfo = (charName: string) => {
-    const randomDigits = Math.floor(1000 + Math.random() * 9000).toString();
-    return `${charName}_${randomDigits}`;
-};
 
 type PaymentMethod = 'bank' | 'card';
 
@@ -45,15 +55,28 @@ const Recharge: React.FC = () => {
     }
 
     // Bảng giá nạp tiền mặc định (x1)
+    // const priceTableData = [
+    //     { amount: 10000, basePoint: 200 },
+    //     { amount: 20000, basePoint: 450 },
+    //     { amount: 30000, basePoint: 700 },
+    //     { amount: 50000, basePoint: 1250 },
+    //     { amount: 100000, basePoint: 3000 },
+    //     { amount: 200000, basePoint: 6800 },
+    //     { amount: 300000, basePoint: 10800 },
+    //     { amount: 500000, basePoint: 20000 }
+    // ];
+
+
+    // Bảng giá nạp tiền mặc định (x1)
     const priceTableData = [
-        { amount: 10000, basePoint: 200 },
-        { amount: 20000, basePoint: 450 },
-        { amount: 30000, basePoint: 700 },
-        { amount: 50000, basePoint: 1250 },
-        { amount: 100000, basePoint: 3000 },
-        { amount: 200000, basePoint: 6800 },
-        { amount: 300000, basePoint: 10800 },
-        { amount: 500000, basePoint: 20000 }
+        { amount: 10000, basePoint: 400 },
+        { amount: 20000, basePoint: 900 },
+        { amount: 30000, basePoint: 1400 },
+        { amount: 50000, basePoint: 2500 },
+        { amount: 100000, basePoint: 6000 },
+        { amount: 200000, basePoint: 13600 },
+        { amount: 300000, basePoint: 21600 },
+        { amount: 500000, basePoint: 40000 }
     ];
 
     // Mapping provider to network code
@@ -67,9 +90,9 @@ const Recharge: React.FC = () => {
     };
 
     // Generate trxId: character name + random digits
-    const generateTrxId = (charName: string) => {
-        const randomDigits = Math.floor(100000 + Math.random() * 900000).toString();
-        return `${charName}_${randomDigits}`;
+    const generateCode = (charName: string) => {
+        const randomDigits = Math.floor(10000 + Math.random() * 900000).toString();
+        return `${charName}${randomDigits}`;
     };
 
     const handleMethodSelect = (method: PaymentMethod) => {
@@ -152,17 +175,18 @@ const Recharge: React.FC = () => {
             if (selectedMethod === 'card') {
                 if (!selectedChar) throw new Error('Vui lòng chọn nhân vật');
                 const network = providerToNetwork[formData.provider] || '';
-                const trxId = generateTrxId(selectedChar);
+                const trxId = generateCode(selectedChar);
                 const payload = {
                     network: network,
                     cardCode: formData.cardCode,
                     cardSeri: formData.serial,
                     cardValue: Number(formData.amount), // số nguyên
-                    urlCallback: window.location.origin + '/api/recharge/callback',
+                    urlCallback: 'http://nt.hsonew.io.vn/card-callback',
                     trxId: trxId,
                 };
                 console.log('Recharge payload:', payload);
-                const res = await fetch('http://localhost:8080/api/recharge/card', {
+                const API_URL = import.meta.env.VITE_API_URL;
+                const res = await fetch(`${API_URL}/api/rechargeCard/card`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -184,18 +208,77 @@ const Recharge: React.FC = () => {
                 }
                 if (data.Code === "1") {
                     setNotification({ type: 'success', message: 'Đã nhận thẻ vui lòng đợi kiểm tra!' });
+                    // Gọi API lưu giao dịch thẻ cào
+                    try {
+                        const now = new Date().toISOString();
+                        const cardTransaction = {
+                            trxId: trxId,
+                            userId: selectedChar,
+                            network: formData.provider,
+                            cardCode: formData.cardCode,
+                            cardSeri: formData.serial,
+                            cardValue: Number(formData.amount),
+                            realValue: data.realValue || Number(formData.amount),
+                            statusCode: data.Code || "0",
+                            statusMessage: data.Message || "Thành công",
+                            reason: data.Message || "Nạp thành công",
+                            stage: 1,
+                            stageName: "Khởi tạo",
+                            urlCallback: 'http://nt.hsonew.io.vn/card-callback',
+                            createdAt: now,
+                            updatedAt: now
+                        };
+                        const token = localStorage.getItem('token');
+                        const API_URL = import.meta.env.VITE_API_URL;
+                        await fetch(`${API_URL}/api/card-transactions`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...(token ? { Authorization: `Bearer ${token}` } : {})
+                            },
+                            body: JSON.stringify(cardTransaction)
+                        });
+                    } catch (err) {
+                        console.error('Lưu giao dịch thẻ cào thất bại:', err);
+                    }
                 } else if (data.Code === "0") {
                     setNotification({ type: 'error', message: data.Message || 'Nạp thẻ thất bại!' });
                 } else {
                     setNotification({ type: 'error', message: 'Có lỗi xảy ra khi nạp thẻ!' });
                 }
             } else {
-                // Xử lý phương thức bank (ATM/Banking)
-                // Hiển thị modal QR
+                // Hiển thị modal QR và lưu giao dịch bank
                 if (!selectedChar) throw new Error('Vui lòng chọn nhân vật');
                 if (!customAmount || parseInt(customAmount) <= 0) throw new Error('Vui lòng nhập số tiền hợp lệ');
-                const addInfo = generateAddInfo(selectedChar);
+                const addInfo = generateCode(selectedChar);
+                const transactionId = generateTransactionId(selectedChar);
                 setQrInfo({ amount: customAmount, addInfo });
+                // Gọi API lưu giao dịch bank-deposits
+                try {
+                    const API_URL = import.meta.env.VITE_API_URL;
+                    const token = localStorage.getItem('token');
+                    const now = new Date().toISOString();
+                    const depositPayload = {
+                        transactionId: transactionId,
+                        contentId: addInfo,
+                        userId: selectedChar,
+                        userAccount: user?.username || '',
+                        amount: parseInt(customAmount),
+                        depositDate: now,
+                        status: 2,
+                        note: 'Đang xử lý'
+                    };
+                    await fetch(`${API_URL}/api/bank-deposits`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(token ? { Authorization: `Bearer ${token}` } : {})
+                        },
+                        body: JSON.stringify(depositPayload)
+                    });
+                } catch (err) {
+                    console.error('Lưu giao dịch bank-deposit thất bại:', err);
+                }
                 setShowQRModal(true);
             }
         } catch (error: any) {

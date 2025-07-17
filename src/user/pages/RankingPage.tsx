@@ -29,7 +29,10 @@ const RankingPage: React.FC = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await axios.get('http://localhost:8080/api/rankings');
+        const API_URL = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API_URL}/api/rankings`, {
+          headers: { 'Content-Type': 'application/json' }
+        });
         setData(res.data);
       } catch (err: any) {
         setError('Không thể tải dữ liệu bảng xếp hạng');

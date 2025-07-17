@@ -3,7 +3,7 @@ import styles from './AuthModals.module.css';
 import logo from '../../assets/images/logo.png';
 import { FaUserPlus, FaTimes, FaUser, FaLock, FaPhone } from 'react-icons/fa';
 import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 
 declare global {
   interface Window {
@@ -70,15 +70,16 @@ const RegisterModal: React.FC = () => {
     }
 
     try {
+      const API_URL = import.meta.env.VITE_API_URL;
       const requestData = {
         username: formData.username.trim(),
         phone: formData.phone.trim(),
-        password: formData.password
+        password: formData.password.trim()
       };
 
-      console.log('Sending register request with:', requestData);
+      console.log('Sending register request with:', API_URL);
 
-      const response = await axios.post('http://localhost:8080/api/auth/register', requestData, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, requestData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -90,15 +91,18 @@ const RegisterModal: React.FC = () => {
         setSuccessMsg('Đăng ký thành công! Đang đăng nhập...');
         // Tự động đăng nhập
         try {
-          const loginRes = await axios.post('http://localhost:8080/api/auth/login', {
+          const loginRes = await axios.post(`${API_URL}/api/auth/login`, {
             username: formData.username.trim(),
-            password: formData.password
+            password: formData.password.trim()
           }, {
             headers: { 'Content-Type': 'application/json' }
           });
           if (loginRes.data && loginRes.data.success && loginRes.data.user) {
             login(loginRes.data.user);
             localStorage.setItem('user', JSON.stringify(loginRes.data.user));
+            if (loginRes.data.token) {
+              localStorage.setItem('token', loginRes.data.token);
+            }
             setFormData({ username: '', phone: '', password: '', confirmPassword: '' });
             setTimeout(() => {
               closeModal();

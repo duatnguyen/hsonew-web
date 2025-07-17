@@ -1,24 +1,23 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 export interface User {
-  id: number;
+  id: string;
   username: string;
   password: string;
   email: string;
   phone: string;
-  coin: number;
   createTime: string;
   status: number;
   lock: boolean;
   listChar?: string[];
+  role: string; // 'user' or 'admin'
 }
 
 interface AuthContextType {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
-  updatePassword: (newPassword: string) => Promise<void>;
+  setUser: (user: User | null) => void; // Thêm dòng này
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -64,22 +63,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('user');
   };
 
-  const updatePassword = async (newPassword: string) => {
-    if (!user) return;
-
-    try {
-      await axios.post('http://localhost:8080/api/auth/change-password', {
-        username: user.username,
-        newPassword: newPassword
-      });
-    } catch (error) {
-      console.error('Error updating password:', error);
-      throw error;
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, updatePassword }}>
+    <AuthContext.Provider value={{ user, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

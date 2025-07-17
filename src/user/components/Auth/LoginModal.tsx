@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './AuthModals.module.css';
 import logo from '../../assets/images/logo.png';
 import { FaSignInAlt, FaTimes, FaUser, FaLock } from 'react-icons/fa';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -109,9 +109,9 @@ const LoginModal: React.FC = () => {
         password: formData.password
       };
 
-      console.log('Sending login request with:', requestData);
-
-      const response = await axios.post('http://localhost:8080/api/auth/login', requestData, {
+      // console.log('Sending login request with:', requestData);
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${API_URL}/api/auth/login`, requestData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -119,13 +119,34 @@ const LoginModal: React.FC = () => {
 
       console.log('Response:', response.data);
 
-      if (response.data && response.data.success === true && response.data.user) {
-        await login(response.data.user);
-        // Lưu user vào localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+      if (response.data && response.data.success === true && response.data.data?.token) {
+        // Lưu token vào localStorage
+        localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('id', String(response.data.data.id));
+        localStorage.setItem('username', response.data.data.username);
+        localStorage.setItem('email', response.data.data.email || '');
+        localStorage.setItem('phone', response.data.data.phone || '');
+        localStorage.setItem('createTime', response.data.data.createTime || '');
+        localStorage.setItem('rolename', response.data.data.rolename || 'user');
+        localStorage.setItem('listChar', JSON.stringify(response.data.data.listChar || []));
+        // Cập nhật context
+        if (login) {
+          login({
+            id: String(response.data.data.id),
+            username: response.data.data.username,
+            password: '',
+            email: response.data.data.email || '',
+            phone: response.data.data.phone || '',
+            createTime: response.data.data.createTime || '',
+            status: response.data.data.status || 1,
+            lock: false,
+            listChar: response.data.data.listChar || [],
+            role: response.data.data.rolename || 'user',
+          });
+        }
         setFormData({ username: '', password: '' });
         closeModal(() => {
-          navigate(`/account/${response.data.user.id}`);
+          navigate('/account');
         });
       } else {
         setError(response.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.');
@@ -263,4 +284,4 @@ const LoginModal: React.FC = () => {
   );
 };
 
-export default LoginModal; 
+export default LoginModal;

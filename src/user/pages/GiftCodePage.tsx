@@ -30,17 +30,25 @@ const GiftCodePage: React.FC = () => {
     useEffect(() => {
         setLoading(true);
         setError('');
-        let url = 'http://localhost:8080/api/giftcodes';
-        if (filter === 'active') url += '/active';
-        else if (filter === 'expired') url += '/expired';
+        const API_URL = import.meta.env.VITE_API_URL;
+        const url = `${API_URL}/api/giftcodes`;
         axios.get<GiftCode[]>(url)
             .then(res => {
-                setGiftCodes(res.data);
+                if (Array.isArray(res.data)) {
+                    setGiftCodes(res.data);
+                } else if (res.data && typeof res.data === 'object') {
+                    setGiftCodes([res.data]);
+                } else if (res.data == null) {
+                    setGiftCodes([]);
+                } else {
+                    setGiftCodes([]);
+                }
                 setLoading(false);
             })
-            .catch(() => {
+            .catch((err) => {
                 setError('Không thể tải danh sách giftcode.');
                 setLoading(false);
+                console.error('GiftCode API error:', err);
             });
     }, [filter]);
 
@@ -58,9 +66,11 @@ const GiftCodePage: React.FC = () => {
     };
 
     // Lọc theo trạng thái
-    const filteredGiftCodes = giftCodes.filter(gift =>
-        filter === 'all' ? true : getStatus(gift) === filter
-    );
+    const filteredGiftCodes = giftCodes.filter(gift => {
+        if (filter === 'all') return true;
+        const status = getStatus(gift);
+        return status === filter;
+    });
 
     // Hiển thị phần thưởng
     const renderRewards = (gift: GiftCode) => {
@@ -92,15 +102,15 @@ const GiftCodePage: React.FC = () => {
                     <p>Nhập mã để nhận quà độc quyền</p>
                 </div>
                 <div className={styles.filterButtons}>
-                    <button 
+                    <button
                         className={`${styles.filterButton} ${filter === 'all' ? styles.active : ''}`}
                         onClick={() => setFilter('all')}
                     >Tất Cả</button>
-                    <button 
+                    <button
                         className={`${styles.filterButton} ${filter === 'active' ? styles.active : ''}`}
                         onClick={() => setFilter('active')}
                     >Còn Hiệu Lực</button>
-                    <button 
+                    <button
                         className={`${styles.filterButton} ${filter === 'expired' ? styles.active : ''}`}
                         onClick={() => setFilter('expired')}
                     >Đã Hết Hạn</button>
@@ -118,8 +128,8 @@ const GiftCodePage: React.FC = () => {
                     ) : filteredGiftCodes.map((giftCode) => {
                         const status = getStatus(giftCode);
                         return (
-                            <div 
-                                key={giftCode.id} 
+                            <div
+                                key={giftCode.id}
                                 className={`${styles.giftCodeCard} ${status === 'expired' ? styles.expired : ''}`}
                             >
                                 <div className={styles.cardHeader}>
@@ -132,7 +142,7 @@ const GiftCodePage: React.FC = () => {
                                 <div className={styles.codeSection}>
                                     <div className={styles.codeDisplay}>
                                         <span>{giftCode.giftname.toUpperCase()}</span>
-                                        <button 
+                                        <button
                                             className={styles.copyButton}
                                             onClick={() => handleCopyCode(giftCode.giftname)}
                                             title="Sao chép mã"

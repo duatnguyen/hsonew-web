@@ -36,7 +36,8 @@ const Navigation: React.FC = () => {
     {
       label: 'Nạp Ngọc',
       to: '/recharge',
-      icon: '💎'
+      icon: '💎',
+      badge: 'x2'
     },
     {
       label: 'Xếp Hạng',

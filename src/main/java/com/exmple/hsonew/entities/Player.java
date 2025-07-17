@@ -153,7 +153,7 @@ public class Player {
     @Column(name = "point_loi_dai", nullable = false)
     private Integer point_loi_dai = 0;
 
-    @Column(name = "pointHealth", nullable = false)
+    @Column(name = "point_health", nullable = false)
     private Integer pointHealth = 30000;
 
     @Column(name = "point_danh_vong")

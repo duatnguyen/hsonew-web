@@ -5,11 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Getter
@@ -17,6 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "account")
+@Builder
 public class Account {
 
     @Id
@@ -44,34 +48,22 @@ public class Account {
     private String phone;
 
     @Column(name = "coin", nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer coin = 0;
+    private Integer coin;
 
     @Column(name = "ac_admin", columnDefinition = "TINYINT DEFAULT 0")
-    private Integer acAdmin = 0;
+    private Integer acAdmin;
 
     @Column(name = "status", columnDefinition = "TINYINT DEFAULT 1")
-    private Integer status = 1;
+    private Integer status;
 
     @Column(name = "is_locked", columnDefinition = "TINYINT DEFAULT 0")
-    private Integer lock = 0;
+    private Integer lock;
 
     @Column(name = "ip", length = 255, nullable = true)
     private String ip;
 
     @Column(name = "last_ip", length = 100)
     private String lastIp;
-
-    @Column(name = "tiennap", columnDefinition = "INT DEFAULT 0")
-    private Integer tiennap = 0;
-
-    @Column(name = "pass2", length = 255)
-    private String pass2;
-
-    @Column(name = "naptuan", columnDefinition = "INT DEFAULT 0")
-    private Integer naptuan = 0;
-
-    @Column(name = "tongnap", columnDefinition = "INT DEFAULT 0")
-    private Integer tongnap = 0;
 
     @Column(name = "otp", columnDefinition = "TEXT")
     private String otp;
@@ -85,4 +77,8 @@ public class Account {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    @JsonIgnoreProperties({ "users", "description", "createdAt" })
+    private Role role;
 }

@@ -10,5 +10,4 @@ public class RechargeCardResponse {
 
     @JsonProperty("Message")
     private String message; // Thông báo nếu có
-    // Có thể bổ sung các trường khác nếu API trả về
-} 
+}

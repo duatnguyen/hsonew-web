@@ -3,10 +3,13 @@ package com.exmple.hsonew.controllers;
 import com.exmple.hsonew.dtos.request.ChangePasswordRequest;
 import com.exmple.hsonew.dtos.request.LoginRequest;
 import com.exmple.hsonew.dtos.request.RegisterRequest;
+import com.exmple.hsonew.dtos.response.ApiResponse;
 import com.exmple.hsonew.dtos.response.BaseResponse;
+import com.exmple.hsonew.dtos.response.LoginResponse;
 import com.exmple.hsonew.dtos.response.UserResponse;
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.services.AccountService;
+import com.exmple.hsonew.services.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -22,26 +25,20 @@ import java.util.Collections;
 public class AuthController {
 
         @Autowired
-        private AccountService accountService;
+        private AuthService authService;
 
         @PostMapping("/register")
         public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request,
                         HttpServletRequest req) {
                 try {
                         if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
-                                return ResponseEntity.badRequest().body(
-                                                UserResponse.builder()
-                                                                .success(false)
-                                                                .message("Tên đăng nhập không được để trống")
-                                                                .build());
+                                UserResponse response = new UserResponse(false, "Tên đăng nhập không được để trống", null);
+                                return ResponseEntity.badRequest().body(response);
                         }
 
                         if (request.getPassword() == null || request.getPassword().length() < 6) {
-                                return ResponseEntity.badRequest().body(
-                                                UserResponse.builder()
-                                                                .success(false)
-                                                                .message("Mật khẩu phải có ít nhất 6 ký tự")
-                                                                .build());
+                                UserResponse response = new UserResponse(false, "Mật khẩu phải có ít nhất 6 ký tự", null);
+                                return ResponseEntity.badRequest().body(response);
                         }
 
                         String ip = req.getHeader("X-Forwarded-For");
@@ -52,117 +49,47 @@ public class AuthController {
                                 ip = "127.0.0.1";
                         }
 
-                        Account account = accountService.register(
-                                        request.getUsername().trim(),
-                                        request.getPassword(),
-                                        request.getEmail(),
-                                        request.getPhone(),
-                                        ip);
+                        Account account = authService.registerAccount(request, ip);
 
-                        // Parse charNames to list
                         java.util.List<String> listChar = (account.getCharNames() != null
                                         && !account.getCharNames().isEmpty())
                                                         ? Arrays.asList(account.getCharNames().split(","))
                                                         : Collections.emptyList();
 
-                        return ResponseEntity.ok(
-                                        UserResponse.builder()
-                                                        .success(true)
-                                                        .message("Đăng ký thành công")
-                                                        .user(new UserResponse.UserData(
-                                                                        account.getId(),
-                                                                        account.getUsername(),
-                                                                        account.getPassword(),
-                                                                        listChar,
-                                                                        account.getEmail(),
-                                                                        account.getPhone(),
-                                                                        account.getCoin(),
-                                                                        account.getCreateTime(),
-                                                                        account.getStatus(),
-                                                                        account.getLock()))
-                                                        .build());
+                        UserResponse.UserData userData = new UserResponse.UserData(
+                                account.getId(),
+                                account.getUsername(),
+                                listChar,
+                                account.getEmail(),
+                                account.getPhone(),
+                                account.getCoin(),
+                                account.getCreateTime(),
+                                account.getStatus(),
+                                account.getLock()
+                        );
+                        UserResponse response = new UserResponse(true, "Đăng ký thành công", userData);
+                        return ResponseEntity.ok(response);
 
                 } catch (Exception e) {
-                        return ResponseEntity.badRequest().body(
-                                        UserResponse.builder()
-                                                        .success(false)
-                                                        .message(e.getMessage())
-                                                        .build());
+                        UserResponse response = new UserResponse(false, e.getMessage(), null);
+                        return ResponseEntity.badRequest().body(response);
                 }
         }
 
         @PostMapping("/login")
-        public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
-                try {
-                        if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
-                                return ResponseEntity.badRequest().body(
-                                                UserResponse.builder()
-                                                                .success(false)
-                                                                .message("Tên đăng nhập không được để trống")
-                                                                .build());
-                        }
-
-                        if (request.getPassword() == null || request.getPassword().isEmpty()) {
-                                return ResponseEntity.badRequest().body(
-                                                UserResponse.builder()
-                                                                .success(false)
-                                                                .message("Mật khẩu không được để trống")
-                                                                .build());
-                        }
-
-                        Account account = accountService.login(request.getUsername().trim(), request.getPassword());
-
-                        // Parse charNames to list
-                        java.util.List<String> listChar = (account.getCharNames() != null
-                                        && !account.getCharNames().isEmpty())
-                                                        ? Arrays.asList(account.getCharNames().split(","))
-                                                        : Collections.emptyList();
-
-                        return ResponseEntity.ok(
-                                        UserResponse.builder()
-                                                        .success(true)
-                                                        .message("Đăng nhập thành công")
-                                                        .user(new UserResponse.UserData(
-                                                                        account.getId(),
-                                                                        account.getUsername(),
-                                                                        account.getPassword(),
-                                                                        listChar,
-                                                                        account.getEmail(),
-                                                                        account.getPhone(),
-                                                                        account.getCoin(),
-                                                                        account.getCreateTime(),
-                                                                        account.getStatus(),
-                                                                        account.getLock()))
-                                                        .build());
-
-                } catch (Exception e) {
-                        return ResponseEntity.badRequest().body(
-                                        UserResponse.builder()
-                                                        .success(false)
-                                                        .message(e.getMessage())
-                                                        .build());
-                }
+        public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
+                LoginResponse account = authService.login(request);
+                return ResponseEntity.ok(ApiResponse.success("Đăng nhập thành công", account));
         }
 
-        @PostMapping("/change-password")
-        public ResponseEntity<BaseResponse> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
-                try {
-                        accountService.changePassword(request.getAccountId(), request.getOldPassword(),
-                                        request.getNewPassword());
-
-                        return ResponseEntity.ok(
-                                        BaseResponse.builder()
-                                                        .success(true)
-                                                        .message("Đổi mật khẩu thành công")
-                                                        .build());
-
-                } catch (Exception e) {
-                        return ResponseEntity.badRequest().body(
-                                        BaseResponse.builder()
-                                                        .success(false)
-                                                        .message(e.getMessage())
-                                                        .build());
-                }
+        @PostMapping("/logout")
+        public ResponseEntity<BaseResponse> logout(@RequestHeader("Authorization") String authorizationHeader) {
+            authService.logout(authorizationHeader);
+            return ResponseEntity.ok(
+                BaseResponse.builder()
+                    .success(true)
+                    .message("Đăng xuất thành công")
+                    .build()
+            );
         }
-
 }

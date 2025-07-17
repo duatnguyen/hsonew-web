@@ -1,11 +1,22 @@
 package com.exmple.hsonew.services;
 
+import com.exmple.hsonew.config.JwtService;
+import com.exmple.hsonew.config.UserDetailsImpl;
+import com.exmple.hsonew.dtos.request.LoginRequest;
 import com.exmple.hsonew.dtos.response.AccountResponse;
+import com.exmple.hsonew.dtos.response.LoginResponse;
 import com.exmple.hsonew.entities.Account;
 import com.exmple.hsonew.repositories.AccountRepository;
+import com.exmple.hsonew.repositories.RefreshTokenRepository;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,72 +26,17 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
 
-    // @Autowired
-    // private PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
-    /**
-     * Đăng ký tài khoản mới
-     */
-    public Account register(String username, String password, String email, String phone, String ip) throws Exception {
-        // Kiểm tra username đã tồn tại
-        if (accountRepository.existsByUsername(username)) {
-            throw new Exception("Tên đăng nhập đã tồn tại");
-        }
-
-        // Kiểm tra email đã tồn tại (nếu có)
-        if (email != null && !email.trim().isEmpty() && accountRepository.existsByEmail(email)) {
-            throw new Exception("Email đã được sử dụng");
-        }
-
-        // Tạo account mới
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setEmail(email);
-        account.setPhone(phone);
-        account.setCoin(0);
-        account.setStatus(1);
-        account.setLock(0);
-        account.setIp(ip); // Set default IP
-        account.setCreateTime(LocalDateTime.now());
-        account.setCharNames("[]"); // Giá trị mặc định
-        return accountRepository.save(account);
-    }
-
-    /**
-     * Đăng nhập
-     */
-    public Account login(String loginId, String password) throws Exception {
-        // Tìm account theo username hoặc email
-        Optional<Account> accountOpt = accountRepository.findByUsernameAndActive(loginId);
-
-        if (!accountOpt.isPresent()) {
-            throw new Exception("Tài khoản không tồn tại hoặc đã bị khóa");
-        }
-
-        Account account = accountOpt.get();
-
-        // Kiểm tra password (so sánh trực tiếp)
-        if (!password.equals(account.getPassword())) {
-            throw new Exception("Mật khẩu không chính xác");
-        }
-
-        // Cập nhật last IP có thể thêm sau
-        accountRepository.save(account);
-
-        return account;
-    }
-
-    /**
-     * Thay đổi mật khẩu
-     */
-    public void changePassword(Integer accountId, String oldPassword, String newPassword) throws Exception {
+    public AccountResponse.TokenData changePasswordAndIssueToken(Integer accountId, String oldPassword,
+            String newPassword) throws Exception {
         Optional<Account> accountOpt = accountRepository.findById(accountId);
 
         if (!accountOpt.isPresent()) {
@@ -94,14 +50,24 @@ public class AccountService {
             throw new Exception("Mật khẩu cũ không chính xác");
         }
 
-        // Cập nhật mật khẩu mới
+        // Cập nhật mật khẩu mới và lastPasswordChange
         account.setPassword(newPassword);
+        // account.setLastPasswordChange(LocalDateTime.now());
         accountRepository.save(account);
+
+        // Xóa toàn bộ refresh token cũ của user
+        refreshTokenRepository.deleteByUser(account);
+
+        // Tạo access token và refresh token mới
+        String accessToken = jwtService.generateToken(account);
+        String refreshToken = jwtService.generateRefreshToken(account);
+
+        return AccountResponse.TokenData.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
-    /**
-     * Cập nhật thông tin tài khoản
-     */
     public Account updateAccount(Integer accountId, String email, String phone) throws Exception {
         Optional<Account> accountOpt = accountRepository.findById(accountId);
 
@@ -127,33 +93,8 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    /**
-     * Tìm tài khoản theo ID
-     */
     public Optional<AccountResponse.AccountData> findById(Integer id) {
         return accountRepository.findById(id).map(this::toAccountData);
-    }
-
-    /**
-     * Tìm tài khoản theo username
-     */
-    public Optional<Account> findByUsername(String username) {
-        return accountRepository.findByUsername(username);
-    }
-
-    /**
-     * Cập nhật coin
-     */
-    public void updateCoin(Integer accountId, Integer coinAmount) throws Exception {
-        Optional<Account> accountOpt = accountRepository.findById(accountId);
-
-        if (!accountOpt.isPresent()) {
-            throw new Exception("Tài khoản không tồn tại");
-        }
-
-        Account account = accountOpt.get();
-        account.setCoin(account.getCoin() + coinAmount);
-        accountRepository.save(account);
     }
 
     public List<AccountResponse.AccountData> findAll() {
@@ -166,6 +107,10 @@ public class AccountService {
 
     public void deleteById(Integer id) {
         accountRepository.deleteById(id);
+    }
+
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
     }
 
     private AccountResponse.AccountData toAccountData(Account account) {
@@ -185,10 +130,6 @@ public class AccountService {
                 account.getLock(),
                 account.getIp(),
                 account.getLastIp(),
-                account.getTiennap(),
-                account.getPass2(),
-                account.getNaptuan(),
-                account.getTongnap(),
                 account.getOtp(),
                 account.getExpirationOtp(),
                 account.getToken(),

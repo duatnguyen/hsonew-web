@@ -1,28 +1,40 @@
 package com.exmple.hsonew.controllers;
 
-import com.exmple.hsonew.dtos.request.RechargeCardRequest;
-import com.exmple.hsonew.dtos.response.RechargeCardResponse;
-import com.exmple.hsonew.services.RechargeCardService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
-@RestController
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.exmple.hsonew.entities.Recharge;
+import com.exmple.hsonew.services.RechargeService;
+
+@Controller
 @RequestMapping("/api/recharge")
 public class RechargeController {
-    @Autowired
-    private RechargeCardService rechargeCardService;
 
-    @PostMapping("/card")
-    public ResponseEntity<RechargeCardResponse> rechargeCard(
-            @RequestBody RechargeCardRequest request) {
-        RechargeCardResponse response = rechargeCardService.rechargeCard(
-                request.getNetwork(),
-                request.getCardCode(),
-                request.getCardSeri(),
-                request.getCardValue(),
-                request.getUrlCallback(),
-                request.getTrxId());
-        return ResponseEntity.ok(response);
+    @Autowired
+    private RechargeService rechargeService;
+
+    @GetMapping("")
+    public ResponseEntity<List<Recharge>> getAllRecharge() {
+        List<Recharge> list = rechargeService.findAll();
+        return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/search-by-names")
+    public ResponseEntity<List<Recharge>> findByNamePlayers(@RequestBody List<String> namePlayers) {
+        List<Recharge> result = rechargeService.findByNamePlayerIn(namePlayers);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Recharge> createRecharge(@RequestBody Recharge recharge) {
+        Recharge saved = rechargeService.save(recharge);
+        return ResponseEntity.ok(saved);
     }
 }

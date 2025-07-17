@@ -3,16 +3,16 @@ package com.exmple.hsonew.dtos.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse extends BaseResponse {
+    private boolean success;
+    private String message;
     private UserData user;
 
     @Data
@@ -21,7 +21,6 @@ public class UserResponse extends BaseResponse {
     public static class UserData {
         private Integer id;
         private String username;
-        private String password;
         private List<String> listChar;
         private String email;
         private String phone;

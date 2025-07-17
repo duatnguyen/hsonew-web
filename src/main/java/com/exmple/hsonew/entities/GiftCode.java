@@ -50,7 +50,7 @@ public class GiftCode {
     @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 
-    @Column(name = "limit")
+    @Column(name = "limit_value") // hoặc tên khác không trùng từ khóa SQL
     private Integer limit;
 
     @Column(name = "limit_use")
